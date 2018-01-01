@@ -8,18 +8,7 @@
     </div><!-- /widget -->
     <div class="widget widget_socials">
         <h5>Social Media</h5>
-        <ul class="social-icons small">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-            <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-            <li><a href="#"><i class="fa fa-vine"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
-        </ul>
+        <social-widget></social-widget>
     </div><!-- /widget -->
     <latest-posts-widget></latest-posts-widget>
     <categories-widget></categories-widget>
@@ -33,6 +22,7 @@ import CategoriesWidget from './widgets/CategoriesWidget.vue'
 import LatestPostsWidget from './widgets/LatestPostsWidget.vue'
 import TagCloudWidget from './widgets/TagCloudWidget.vue'
 import BasicTextWidget from './widgets/BasicTextWidget.vue'
+import SocialWidget from './widgets/SocialWidget.vue'
 
 export default {
   name: 'BodySidebar',
@@ -40,7 +30,8 @@ export default {
     'categories-widget': CategoriesWidget,
     'latest-posts-widget': LatestPostsWidget,
     'tag-cloud-widget': TagCloudWidget,
-    'basic-text-widget': BasicTextWidget
+    'basic-text-widget': BasicTextWidget,
+    'social-widget': SocialWidget,
   }
 }
 </script>

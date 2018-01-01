@@ -18,12 +18,12 @@
             </div><!-- /logo-container -->
             <ul class="main-nav-items"><!-- Stick Nav Items! -->
               <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-              <router-link to="/category" tag="li" active-class="active"><a>Smoothies</a></router-link>
-              <router-link to="/category" tag="li" active-class="active"><a>Desserts</a></router-link>
-              <router-link to="/category" tag="li" active-class="active"><a>Entrées</a></router-link>
-              <router-link to="/category" tag="li" active-class="active"><a>Snacks</a></router-link>
-              <router-link to="/category" tag="li" active-class="active"><a>Reviews</a></router-link>
-              <router-link to="/category" tag="li" active-class="active"><a>Netflix</a></router-link>
+                                <router-link to="/article" tag="li" active-class="active"><a>Smoothies</a></router-link>
+                                <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
+                                <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
+                                <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
+                                <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
+                                <router-link to="/category/netflix" tag="li" active-class="active"><a>Netflix</a></router-link>
               <li class="has-children">
                   <a href="#">More</a>
                   <ul>
@@ -138,7 +138,7 @@
                             </div><!-- /search-container -->
                             <ul class="main-nav-items" v-bind:class="{ 'show-sub' : showMobileNav }">
                                 <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-                                <router-link to="/category/smoothies" tag="li" active-class="active"><a>Smoothies</a></router-link>
+                                <router-link to="/article" tag="li" active-class="active"><a>Smoothies</a></router-link>
                                 <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
                                 <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
                                 <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
@@ -211,18 +211,7 @@
           </footer>
 
           <div id="bottom-footer">
-              <ul class="social-icons small">
-                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                  <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                  <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                  <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                  <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                  <li><a href="#"><i class="fa fa-vine"></i></a></li>
-                  <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                  <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
-              </ul>
+              <social-widget></social-widget>
               <p class="copyright">Copyright © 2017 Shmoothies.</p>
           </div><!-- /bottom-footer -->
       </section><!-- /wrapper -->
@@ -233,13 +222,15 @@
 import Sidebar from './components/navigation/Sidebar.vue'
 import LatestPostsWidget from './components/elements/widgets/LatestPostsWidget.vue'
 import CategoriesWidget from './components/elements/widgets/CategoriesWidget.vue'
+import SocialWidget from './components/elements/widgets/SocialWidget.vue'
 
 export default {
   name: 'app',
   components: {
     'sidebar': Sidebar,
     'latest-posts-widget': LatestPostsWidget,
-    'categories-widget': CategoriesWidget
+    'categories-widget': CategoriesWidget,
+    'social-widget': SocialWidget
   },
   data: function () {
     return {
