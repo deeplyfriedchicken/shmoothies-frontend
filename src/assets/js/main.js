@@ -36,7 +36,7 @@
 	********************************************/
 	$(document).on('ready', function() {
 
-		blogTabs(); // Blog Tabs
+		// blogTabs(); // Blog Tabs
 
 	});
 

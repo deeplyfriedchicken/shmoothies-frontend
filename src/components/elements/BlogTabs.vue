@@ -1,10 +1,10 @@
 <template>
 <div>
   <div class="blog-tabs clearfix">
-      <a href="#latest-posts" class="active">Latest Stories</a>
-      <a href="#popular-posts">Popular Stories</a>
+      <a href="#latest-posts" class="active" v-on:click.prevent="toggleTabs">Latest Stories</a>
+      <a href="#popular-posts" v-on:click.prevent="toggleTabs">Popular Stories</a>
   </div><!-- /page-titlebar -->
-  <div id="latest-posts" class="tab-contents active">
+  <div id="latest-posts" class="tab-contents" v-bind:class="{ 'active' : latest }">
       <div class="contents-inner grid-view clearfix">
         <div class="row">
           <article class="blog-post col-md-6 col-sm-6">
@@ -88,7 +88,7 @@
         </div>
       </div><!-- /contenblog-popular-poststs-inner -->
   </div><!-- /blog-latest-posts -->
-  <div id="popular-posts" class="tab-contents">
+  <div id="popular-posts" class="tab-contents" v-bind:class="{ 'active' : popular }">
       <div class="contents-inner grid-view clearfix">
           <article class="blog-post col-md-6 col-sm-6">
               <header>
@@ -98,7 +98,7 @@
                   <ul class="categories">
                       <li><a href="#">Fashion</a></li>
                   </ul>
-                  <h3><a href="#">Tres Bella Introduces The All New Low Cut Boot Collection</a></h3>
+                  <h3><a href="#">BIRBTres Bella Introduces The All New Low Cut Boot Collection</a></h3>
                   <div class="meta">
                       <span><time datetime="2015-09-03">July 03, 2015</time></span>
                       <span>6052 Views</span>
@@ -214,7 +214,30 @@
 
 <script>
 export default {
-  name: 'BlogTabs'
+  name: 'BlogTabs',
+  data () {
+    return{
+      latest: true,
+      popular: false
+    }
+  },
+  methods: {
+    toggleTabs (e) {
+      e.target.classList.add('active')
+      let sibling = e.target.nextElementSibling
+      if (sibling) {
+        this.latest = true
+        this.popular = false
+      }
+      else {
+        sibling = e.target.previousElementSibling
+        this.latest = false
+        this.popular = true
+      }
+      sibling.classList.remove('active')
+      console.log(this.latest)
+    }
+  },
 }
 </script>
 

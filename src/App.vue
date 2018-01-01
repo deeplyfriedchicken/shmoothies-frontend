@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled}">
+    <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled }">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
