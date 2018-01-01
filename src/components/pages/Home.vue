@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import BlogSlider from './BlogSlider.vue'
-import FeaturedPosts from './FeaturedPosts.vue'
-import BlogTabs from './BlogTabs.vue'
-import BodySidebar from './BodySidebar.vue'
+import BlogSlider from '../elements/BlogSlider.vue'
+import FeaturedPosts from '../elements/FeaturedPosts.vue'
+import BlogTabs from '../elements/BlogTabs.vue'
+import BodySidebar from '../elements/BodySidebar.vue'
 
 export default {
   name: 'Home',
