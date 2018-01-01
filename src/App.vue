@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <router-link to="/login" id="login"><i class="fa fa-github-alt"></i></router-link>
     <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled }">
       <div class="container">
         <div class="row">
@@ -47,17 +48,6 @@
         </div><!-- /row -->
       </div><!-- /container -->
     </div><!-- /sticky-nav -->
-
-    <div class="top-message">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <span class="close-btn"></span>
-                    <p>Optional Text Notice Or Message Can Go Here!</p>
-                </div><!-- /col-md-12 -->
-            </div><!-- /row -->
-        </div><!-- /container -->
-    </div><!-- /top-message -->
 
     <sidebar></sidebar>
 
@@ -261,5 +251,25 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+#login {
+  position: absolute;
+  z-index: 21;
+  right: 20px;
+  top: 15px;
+  color: transparent;
+}
+#login:hover {
+  color: black;
+}
+#login i {
+  font-size: 30px;
+}
+@media only screen and (min-width: 991px) and (max-width: 1080px) {
+  #login {
+    top: 60px;
+    right: 10px;
+  }
 }
 </style>

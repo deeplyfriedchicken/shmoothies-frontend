@@ -31,7 +31,7 @@ export default {
     'latest-posts-widget': LatestPostsWidget,
     'tag-cloud-widget': TagCloudWidget,
     'basic-text-widget': BasicTextWidget,
-    'social-widget': SocialWidget,
+    'social-widget': SocialWidget
   }
 }
 </script>

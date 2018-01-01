@@ -216,7 +216,7 @@
 export default {
   name: 'BlogTabs',
   data () {
-    return{
+    return {
       latest: true,
       popular: false
     }
@@ -228,16 +228,14 @@ export default {
       if (sibling) {
         this.latest = true
         this.popular = false
-      }
-      else {
+      } else {
         sibling = e.target.previousElementSibling
         this.latest = false
         this.popular = true
       }
       sibling.classList.remove('active')
-      console.log(this.latest)
     }
-  },
+  }
 }
 </script>
 
