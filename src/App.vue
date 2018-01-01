@@ -201,54 +201,10 @@
                           </div><!-- /widget -->
                       </div><!-- /col-md-4 -->
                       <div class="col-md-4">
-                          <div class="widget widget_latest_posts_entries">
-                              <h5>Latest Posts</h5>
-                              <ul>
-                                  <li>
-                                      <div class="featured-image">
-                                          <img src="http://placehold.it/90x70">
-                                      </div>
-                                      <div class="post-content">
-                                          <p class="post-title"><a href="#">Great Outdoor Travel Tips For Beginners</a></p>
-                                          <span class="category">Travel</span>
-                                          <span class="post-date">August 5, 2015</span>
-                                      </div>
-                                  </li>
-                                  <li>
-                                      <div class="featured-image">
-                                          <img src="http://placehold.it/90x70">
-                                      </div>
-                                      <div class="post-content">
-                                          <p class="post-title"><a href="#">Denim 2015 Fall Exclusives</a></p>
-                                          <span class="category">Fashio</span>
-                                          <span class="post-date">July 27, 2015</span>
-                                      </div>
-                                  </li>
-                                  <li>
-                                      <div class="featured-image">
-                                          <img src="http://placehold.it/90x70">
-                                      </div>
-                                      <div class="post-content">
-                                          <p class="post-title"><a href="#">Pacific Goods New Arrivals</a></p>
-                                          <span class="category">Fashio</span>
-                                          <span class="post-date">July 11, 2015</span>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div><!-- /widget -->
+                          <latest-posts-widget></latest-posts-widget>
                       </div><!-- /col-md-4 -->
                       <div class="col-md-4">
-                          <div class="widget widget_categories">
-                              <h5>Categories</h5>
-                              <ul>
-                                  <li><a href="#">Category</a> (3)</li>
-                                  <li><a href="#">Category</a> (10)</li>
-                                  <li><a href="#">Category</a> (6)</li>
-                                  <li><a href="#">Category</a> (2)</li>
-                                  <li><a href="#">Category</a> (15)</li>
-                                  <li><a href="#">Category</a> (7)</li>
-                              </ul>
-                          </div><!-- /widget -->
+                          <categories-widget></categories-widget>
                       </div><!-- /col-md-4 -->
                   </div><!-- /row -->
               </div><!-- /container -->
@@ -267,20 +223,23 @@
                   <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                   <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
               </ul>
-              <p class="copyright">Copyright © 2015 Maverick.</p>
+              <p class="copyright">Copyright © 2017 Shmoothies.</p>
           </div><!-- /bottom-footer -->
-
       </section><!-- /wrapper -->
   </div>
 </template>
 
 <script>
 import Sidebar from './components/navigation/Sidebar.vue'
+import LatestPostsWidget from './components/elements/widgets/LatestPostsWidget.vue'
+import CategoriesWidget from './components/elements/widgets/CategoriesWidget.vue'
 
 export default {
   name: 'app',
   components: {
-    'sidebar': Sidebar
+    'sidebar': Sidebar,
+    'latest-posts-widget': LatestPostsWidget,
+    'categories-widget': CategoriesWidget
   },
   data: function () {
     return {
