@@ -18,32 +18,18 @@
             </div><!-- /logo-container -->
             <ul class="main-nav-items"><!-- Stick Nav Items! -->
               <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-                                <router-link to="/article" tag="li" active-class="active"><a>Smoothies</a></router-link>
-                                <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
-                                <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
-                                <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
-                                <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
-                                <router-link to="/category/netflix" tag="li" active-class="active"><a>Netflix</a></router-link>
+              <router-link to="/category/smoothies/first-article" tag="li" active-class="active"><a>Smoothies</a></router-link>
+              <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
+              <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
+              <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
+              <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
+              <router-link to="/category/netflix" tag="li" active-class="active"><a>Netflix</a></router-link>
               <li class="has-children">
                   <a href="#">More</a>
                   <ul>
-                      <li><a href="#">Travel</a></li>
-                      <li>
-                          <a href="#">Gadgets</a>
-                          <ul>
-                              <li>
-                                  <a href="#">Smartphones</a>
-                                  <ul>
-                                      <li><a href="#">Apple</a></li>
-                                      <li><a href="#">Microsoft</a></li>
-                                      <li><a href="#">GLX!</a></li>
-                                  </ul>
-                              </li>
-                              <li><a href="#">Tablet</a></li>
-                              <li><a href="#">Desktop</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="#">Food</a></li>
+                      <router-link to="/category/music" tag="li" active-class="active"><a>Music</a></router-link>
+                      <router-link to="/category/sports" tag="li" active-class="active"><a>Sports</a></router-link>
+                      <router-link to="/category/technology" tag="li" active-class="active"><a>Technology</a></router-link>
                   </ul>
               </li>
           </ul>
@@ -138,7 +124,7 @@
                             </div><!-- /search-container -->
                             <ul class="main-nav-items" v-bind:class="{ 'show-sub' : showMobileNav }">
                                 <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-                                <router-link to="/article" tag="li" active-class="active"><a>Smoothies</a></router-link>
+                                <router-link to="/category/smoothies/first-article" tag="li" active-class="active"><a>Smoothies</a></router-link>
                                 <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
                                 <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
                                 <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
@@ -147,23 +133,9 @@
                                 <li class="has-children" v-on:click.prevent="showMore" v-bind:class="{ 'show-sub' : showMoreNav }">
                                     <a href="#">More</a>
                                     <ul>
-                                        <li><a href="#">Travel</a></li>
-                                        <li>
-                                            <a href="#">Gadgets</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="#">Smartphones</a>
-                                                    <ul>
-                                                        <li><a href="#">Apple</a></li>
-                                                        <li><a href="#">Microsoft</a></li>
-                                                        <li><a href="#">GLX!</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Tablet</a></li>
-                                                <li><a href="#">Desktop</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Food</a></li>
+                                        <router-link to="/category/music" tag="li" active-class="active"><a>Music</a></router-link>
+                                        <router-link to="/category/sports" tag="li" active-class="active"><a>Sports</a></router-link>
+                                        <router-link to="/category/technology" tag="li" active-class="active"><a>Technology</a></router-link>
                                     </ul>
                                 </li>
                             </ul>
