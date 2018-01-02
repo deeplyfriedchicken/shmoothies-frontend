@@ -2,7 +2,7 @@
   <aside id="sideheader" ref="sideheader">
     <header>
         <div class="logo-container">
-            <a href="#"><img src="src/assets/shmoothies-logo.png" alt="Shmoothies Logo"></a>
+            <a href="#"><img src="/src/assets/shmoothies-logo.png" alt="Shmoothies Logo"></a>
         </div><!-- /logo-container -->
         <a href="#" class="sideheader-close-btn" v-on:click.prevent="toggleSidebar">
             <span></span>

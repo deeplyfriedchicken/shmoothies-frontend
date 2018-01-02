@@ -5,7 +5,7 @@
         <li class="comment">
             <div class="comment-body">
                 <figure>
-                    <img src="src/assets/img/misc/comment-avatar.png" alt="Maverick">
+                    <img src="/src/assets/img/misc/comment-avatar.png" alt="Maverick">
                 </figure>
                 <div class="comment-content">
                     <h4 class="comment-author"><a href="#">John Doe</a></h4>
@@ -20,7 +20,7 @@
         <li class="comment">
             <div class="comment-body">
                 <figure>
-                    <img src="src/assets/img/misc/comment-avatar.png" alt="Maverick">
+                    <img src="/src/assets/img/misc/comment-avatar.png" alt="Maverick">
                 </figure>
                 <div class="comment-content">
                     <h4 class="comment-author"><a href="#">John Doe</a></h4>

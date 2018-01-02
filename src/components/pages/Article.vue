@@ -7,26 +7,17 @@
                   <div class="contents-inner clearfix">
                       <article class="blog-post col-md-12">
                           <header>
-                              <h3><a href="#">Vintage Supply Co. Unveils All New 2016 Spring / Summer Collection At The Los Angeles Fashion Expo</a></h3>
+                              <h3><a href="#">{{ article.title }}</a></h3>
                               <div class="meta">
                                   <span><time datetime="2015-09-03">July 03, 2015</time></span>
                                   <span>6052 Views</span>
                                   <span><a href="#">8 Comments</a></span>
                               </div><!-- /meta -->
                               <figure>
-                                  <img src="src/assets/img/blog/single-post.jpg" alt="Maverick Blog">
+                                  <img src="/src/assets/img/blog/single-post.jpg" alt="Maverick Blog">
                               </figure>
                           </header>
-                          <div class="post-content">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus nibh et congue aliquam. Fusce ipsum tellus, pellentesque a consequat eget, luctus eget nisi. Maecenas tellus elit, mattis eget luctus vitae, mollis quis metus. Ut quis turpis vel quam varius eleifend id id augue. Vestibulum eu arcu feugiat, sodales orci ut, dictum mauris. </p>
-                              <h4>Lorem Ipsum Dolor</h4>
-                              <p>Lorem ipsum dolor sit amet, consectetur <a href="#">adipiscing</a> elit. In cursus nibh et congue aliquam. Fusce ipsum tellus, pellentesque a consequat eget, luctus eget nisi. Maecenas tellus elit, mattis eget luctus vitae, mollis quis metus. Ut quis turpis vel quam varius eleifend id id augue. Vestibulum eu arcu feugiat, sodales orci ut, dictum mauris. Aenean tempus ipsum at nibh tempor feugiat. Nam aliquet velit sit amet cursus et ultricies. Vestibulum ante ipsum primis in faucibus efficitur turpis.</p>
-                              <blockquote>
-                                  <p>
-                                      Fusce pellentesque, leo nec dignissim condimentum, leo dui elementum felis, sit amet sodales velit est vitae sapien.
-                                  </p>
-                              </blockquote>
-                              <p>Vivamus gravida, eros nec volutpat aliquam, neque lacus mollis dolor, nec pretium mauris ante vitae risus. Duis rutrum odio vel accumsan imperdiet. Nulla ac posuere lacus. Quisque sed ipsum vel nisl gravida vulputate. Sed pretium non magna malesuada convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales porta gravida. Fusce pellentesque, leo nec dignissim condimentum, leo dui elementum felis, sit amet sodales velit est vitae sapien. Sed blandit tellus vel nisl porta ultricies. Sed at erat at dolor maximus suscipit vitae ut lacus. In bibendum ullamcorper feugiat. Maecenas enim felis, fermentum non ultrices at, pellentesque ut ipsum. </p>
+                          <div class="post-content" v-html="article.content">
                           </div><!-- /post-content -->
                           <div class="post-share clearfix">
                               <p class="counter"><span>53</span>Shares</p>
@@ -52,7 +43,7 @@
                           </div><!-- /post-meta -->
                           <div class="post-author">
                               <figure class="avatar">
-                                  <img src="src/assets/img/misc/author.png" alt="Maverick Author">
+                                  <img src="/src/assets/img/misc/author.png" alt="Maverick Author">
                               </figure>
                               <div class="author-details">
                                   <h2>John Doe</h2>
@@ -93,16 +84,33 @@ export default {
     'related-posts': RelatedPosts,
     'comments': Comments
   },
+  data () {
+    return {
+      article: {
+        author: null,
+        blurb: null,
+        category: null,
+        content: null,
+        date_created: null,
+        date_updated: null,
+        id: null,
+        image: null,
+        shares: null,
+        slug: null,
+        title: null,
+        views: null
+      }
+    }
+  },
   created () {
-    axios.get('http://localhost:8000/api/articles')
+    axios.get('/api/articles/' + this.$route.params.article + '/')
       .then(res => {
         console.log(res)
         const data = res.data
-        this.articles = data
-        console.log(this.articles)
+        this.article = data
       })
       .catch(error => console.log(error))
-  },
+  }
 }
 </script>
 

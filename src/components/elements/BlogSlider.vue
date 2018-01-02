@@ -7,9 +7,9 @@
                   <img src="http://placehold.it/690x460">
               </figure>
               <ul class="categories">
-                  <li><a href="#">{{ article.category }}</a></li>
+                  <li><router-link :to="`category/${article.category.toLowerCase()}`">{{ article.category }}</router-link></li>
               </ul>
-              <h3><a href="#">{{ article.title }}</a></h3>
+              <h3><router-link :to="`category/${article.category.toLowerCase()}/${article.slug}`">{{ article.title }}</router-link></h3>
           </header>
           <footer>
               <div class="meta">
@@ -40,8 +40,21 @@ export default {
       articles: []
     }
   },
+  // All slick methods can be used too, example here
+  methods: {
+    next () {
+      this.$refs.slick.next()
+    },
+    prev () {
+      this.$refs.slick.prev()
+    },
+    reInit () {
+      // Helpful if you have to deal with v-for to update dynamic lists
+      this.$refs.slick.reSlick()
+    }
+  },
   created () {
-    axios.get('http://localhost:8000/api/articles')
+    axios.get('/api/articles')
       .then(res => {
         console.log(res)
         const data = res.data
@@ -52,14 +65,13 @@ export default {
   },
   beforeUpdate () {
     if (this.$refs.slick) {
-        this.$refs.slick.destroy();
+      this.$refs.slick.destroy()
     }
   },
   updated () {
-      if (this.$refs.slick && !this.$refs.slick.$el.classList.contains('slick-initialized')) {
-          this.$refs.slick.create();
-      }
-  },
-
+    if (this.$refs.slick && !this.$refs.slick.$el.classList.contains('slick-initialized')) {
+      this.$refs.slick.create()
+    }
+  }
 }
 </script>

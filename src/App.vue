@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <router-link to="/login" id="login"><i class="fa fa-github-alt"></i></router-link>
+    <router-link v-if="!authenticated" to="/login" id="login"><i class="fa fa-github-alt"></i></router-link>
+    <router-link v-if="authenticated" to="/admin" id="login"><i class="fa fa-tachometer "></i></router-link>
     <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled }">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <a href="#" class="nav-trigger" if="sticky-is-true" v-on:click.prevent="showSidebar">
-              <span class="bars">
+              <span class="bars sticky">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -14,13 +15,13 @@
             </a>
             <div class="logo-container">
               <a href="#">
-                <img src="src/assets/img/logo/shmoothies-logo3.png" alt="Shmoothies Logo">
+                <img src="/src/assets/img/logo/shmoothies-logo3.png" alt="Shmoothies Logo">
               </a>
             </div><!-- /logo-container -->
             <ul class="main-nav-items"><!-- Stick Nav Items! -->
               <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
               <router-link to="/category/smoothies/first-article" tag="li" active-class="active"><a>Smoothies</a></router-link>
-              <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
+              <router-link to="/admin" tag="li" active-class="active"><a>Desserts</a></router-link>
               <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
               <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
               <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
@@ -99,7 +100,7 @@
                             </a>
                             <div class="logo-wrapper">
                                 <a href="#" class="logo">
-                                    <img id="logo" src="src/assets/shmoothies-logo.png" alt="Shmoothies Logo">
+                                    <img id="logo" src="/src/assets/shmoothies-logo.png" alt="Shmoothies Logo">
                                 </a>
                             </div><!-- /logo-wrapper -->
                             <div class="search-container" v-bind:class="{ 'form-is-showing' : showSearch }">
@@ -115,7 +116,7 @@
                             <ul class="main-nav-items" v-bind:class="{ 'show-sub' : showMobileNav }">
                                 <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
                                 <router-link to="/category/smoothies/first-article" tag="li" active-class="active"><a>Smoothies</a></router-link>
-                                <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
+                                <router-link to="/admin" tag="li" active-class="active"><a>Desserts</a></router-link>
                                 <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
                                 <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
                                 <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
@@ -152,7 +153,7 @@
                           <div class="widget widget_text">
                               <h5>About Us</h5>
                               <div class="textwidget">
-                                  <img src="src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
+                                  <img src="/src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
                                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                                   <form  class="subscribe-form">
                                       <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
@@ -204,6 +205,11 @@ export default {
       showSearch: false
     }
   },
+  computed: {
+    authenticated () {
+      return this.$store.getters.isAuthenticated
+    }
+  },
   methods: {
     mainHeader: function () {
       const main = this.$refs.mainHeader
@@ -229,6 +235,7 @@ export default {
     }
   },
   created: function () {
+    this.$store.dispatch('tryAutoLogin')
     window.addEventListener('load', this.setHeader)
     window.addEventListener('resize', this.setHeader)
     window.addEventListener('scroll', this.onScroll)

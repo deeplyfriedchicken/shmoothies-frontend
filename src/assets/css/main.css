@@ -533,6 +533,10 @@ ul, ol {
   padding-top: 3px;
 }
 
+.nav-trigger .bars.sticky {
+  padding-top: 8px;
+}
+
 .nav-trigger .bars span {
   display: inline-block;
   width: 16px;

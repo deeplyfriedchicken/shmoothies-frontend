@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1>Login</h1>
+    <h2 v-if="authenticated">Authenticated!</h2>
     <div class="col-md-8 col-md-offset-2">
       <form action="#" class="maverick-form">
         <div class="row">
@@ -22,8 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'Login',
   data () {
@@ -34,12 +33,18 @@ export default {
       }
     }
   },
+  computed: {
+    authenticated () {
+      return !this.$store.getters.isAuthenticated ? false : this.$store.state.token
+    }
+  },
   methods: {
     onSubmit () {
       console.log(this.credentials)
-      axios.post('http://localhost:8000/api/login/', this.credentials)
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
+      this.$store.dispatch('login', {
+        username: this.credentials.username,
+        password: this.credentials.password
+      })
     }
   }
 }
