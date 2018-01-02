@@ -84,6 +84,7 @@
 import BodySidebar from '../elements/BodySidebar.vue'
 import RelatedPosts from '../elements/RelatedPosts.vue'
 import Comments from '../elements/Comments.vue'
+import axios from 'axios'
 
 export default {
   name: 'Article',
@@ -91,7 +92,17 @@ export default {
     'body-sidebar': BodySidebar,
     'related-posts': RelatedPosts,
     'comments': Comments
-  }
+  },
+  created () {
+    axios.get('http://localhost:8000/api/articles')
+      .then(res => {
+        console.log(res)
+        const data = res.data
+        this.articles = data
+        console.log(this.articles)
+      })
+      .catch(error => console.log(error))
+  },
 }
 </script>
 
