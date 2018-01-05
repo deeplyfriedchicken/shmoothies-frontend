@@ -1,15 +1,15 @@
 <template>
   <div class="blog-post-slider">
     <slick ref="slick">
-      <article class="blog-post" v-for="article in articles">
+      <article class="blog-post" v-if="articles" v-for="article in articles">
           <header>
               <figure>
                   <img src="http://placehold.it/690x460">
               </figure>
               <ul class="categories">
-                  <li><router-link :to="`category/${article.category.toLowerCase()}`">{{ article.category }}</router-link></li>
+                  <li><router-link :to="`category/${article.category.name.toLowerCase()}`">{{ article.category.name }}</router-link></li>
               </ul>
-              <h3><router-link :to="`category/${article.category.toLowerCase()}/${article.slug}`">{{ article.title }}</router-link></h3>
+              <h3><router-link :to="`category/${article.category.name.toLowerCase()}/${article.slug}`">{{ article.title }}</router-link></h3>
           </header>
           <footer>
               <div class="meta">
@@ -28,7 +28,7 @@
 
 <script>
 import Slick from 'vue-slick'
-import axios from 'axios'
+import axios from '../../axios-auth'
 
 export default {
   name: 'BlogSlider',

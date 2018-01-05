@@ -48,6 +48,11 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
       },

@@ -8,14 +8,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null
+    token: null,
+    id: null
   },
   mutations: {
     authUser (state, userData) {
       state.token = userData.token
+      state.id = userData.id
     },
     clearAuthData (state) {
       state.token = null
+      state.id = null
     }
   },
   actions: {
@@ -31,11 +34,13 @@ export default new Vuex.Store({
       })
         .then(res => {
           commit('authUser', {
-            token: res.data.token
+            token: res.data.token,
+            id: res.data.id
           })
           const now = new Date()
           const expirationDate = new Date(now.getTime() + 3600 * 1000)
           localStorage.setItem('token', res.data.token)
+          localStorage.setItem('id', res.data.id)
           localStorage.setItem('expirationDate', expirationDate)
           router.replace('/admin')
           dispatch('setLogoutTimer', 3600)
@@ -47,18 +52,21 @@ export default new Vuex.Store({
       if (!token) {
         return
       }
+      const id = localStorage.getItem('id')
       const expirationDate = localStorage.getItem('expirationDate')
       const now = new Date()
       if (now <= expirationDate) {
         return
       }
       commit('authUser', {
-        token: token
+        token: token,
+        id: id
       })
     },
     logout ({commit}) {
       commit('clearAuthData')
       localStorage.removeItem('token')
+      localStorage.removeItem('id')
       localStorage.removeItem('expirationDate')
       router.replace('/')
     }

@@ -1018,6 +1018,9 @@ ul, ol {
 .blog-post {
   margin-bottom: 30px;
   position: relative;
+}
+
+.blog-post header {
   text-align: center;
 }
 

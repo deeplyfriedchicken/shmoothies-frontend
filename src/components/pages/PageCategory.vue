@@ -81,12 +81,7 @@
 </template>
 
 <script>
-import BodySidebar from '../elements/BodySidebar.vue'
-
 export default {
-  name: 'PageCategory',
-  components: {
-    'body-sidebar': BodySidebar
-  }
+  name: 'PageCategory'
 }
 </script>

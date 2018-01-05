@@ -8,8 +8,9 @@ import Login from '@/components/pages/Login'
 import Article from '@/components/pages/Article'
 import Page from '@/components/pages/Page'
 import PageCategory from '@/components/pages/PageCategory'
+import Admin from '@/components/pages/auth/Admin'
 import Dashboard from '@/components/pages/auth/Dashboard'
-// import CreateArticle from '@/components/pages/auth/CreateArticle'
+import NewArticle from '@/components/pages/auth/NewArticle'
 
 Vue.use(Router)
 
@@ -27,8 +28,19 @@ export default new Router({
     },
     {
       path: '/admin',
-      name: 'Dashboard',
-      component: Dashboard
+      component: Admin,
+      children: [
+        {
+          path: '',
+          name: 'Dashboard',
+          component: Dashboard
+        },
+        {
+          path: 'new-article',
+          name: 'NewArticle',
+          component: NewArticle
+        }
+      ]
     },
     {
       path: '/category',

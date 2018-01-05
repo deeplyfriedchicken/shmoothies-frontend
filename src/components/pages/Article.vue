@@ -1,73 +1,62 @@
 <template>
   <transition name="fade">
-    <section class="contents-container">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-8">
-                  <div class="contents-inner clearfix">
-                      <article class="blog-post col-md-12">
-                          <header>
-                              <h3><a href="#">{{ article.title }}</a></h3>
-                              <div class="meta">
-                                  <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                                  <span>6052 Views</span>
-                                  <span><a href="#">8 Comments</a></span>
-                              </div><!-- /meta -->
-                              <figure>
-                                  <img src="/src/assets/img/blog/single-post.jpg" alt="Maverick Blog">
-                              </figure>
-                          </header>
-                          <div class="post-content" v-html="article.content">
-                          </div><!-- /post-content -->
-                          <div class="post-share clearfix">
-                              <p class="counter"><span>53</span>Shares</p>
-                              <ul class="social-icons style2">
-                                  <li><a href="#"><i class="fa fa-facebook"></i>Like</a></li>
-                                  <li><a href="#"><i class="fa fa-twitter"></i>Tweet</a></li>
-                                  <li><a href="#"><i class="fa fa-reddit"></i>Submit</a></li>
-                                  <li><a href="#"><i class="fa fa-pinterest"></i>Pin It</a></li>
-                                  <li><a href="#"><i class="fa fa-envelope-o"></i>Email</a></li>
-                                  <li><a href="#"><i class="fa fa-link"></i>link</a></li>
-                              </ul>
-                          </div><!-- /post-share -->
-                          <div class="post-meta">
-                              <p class="author">By: <a href="#">John Doe</a></p>
-                              <div class="post-tags">
-                                  Tags:
-                                  <ul>
-                                      <li>Travel</li>
-                                      <li>Fashion</li>
-                                      <li>Lifestyle</li>
-                                  </ul>
-                              </div><!-- /post-tags -->
-                          </div><!-- /post-meta -->
-                          <div class="post-author">
-                              <figure class="avatar">
-                                  <img src="/src/assets/img/misc/author.png" alt="Maverick Author">
-                              </figure>
-                              <div class="author-details">
-                                  <h2>John Doe</h2>
-                                  <p>This is a description of the author. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae accumsan nisl. Donec at laoreet sapien, eget facilisis velit.</p>
-                                  <ul class="social-icons small">
-                                      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                      <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                  </ul>
-                              </div><!-- /author-details -->
-                          </div><!-- /post-author -->
-                          <related-posts></related-posts>
-                          <comments></comments>
-                      </article>
-                  </div><!-- /contents-inner -->
-              </div><!-- /col-md-8 -->
-              <div class="col-md-4">
-                  <body-sidebar></body-sidebar>
-              </div><!-- /col-md-4 -->
-          </div><!-- /row -->
-      </div><!-- /container -->
-    </section>
+    <div class="contents-inner clearfix">
+        <article class="blog-post col-md-12">
+            <header>
+                <h3><a href="#">{{ article.title }}</a></h3>
+                <div class="meta">
+                    <span><time datetime="2015-09-03">July 03, 2015</time></span>
+                    <span>6052 Views</span>
+                    <span><a href="#">8 Comments</a></span>
+                </div><!-- /meta -->
+                <figure>
+                    <img src="/src/assets/img/blog/single-post.jpg" alt="Maverick Blog">
+                </figure>
+            </header>
+            <div class="post-content" v-html="article.content">
+            </div><!-- /post-content -->
+            <div class="post-share clearfix">
+                <p class="counter"><span>53</span>Shares</p>
+                <ul class="social-icons style2">
+                    <li><a href="#"><i class="fa fa-facebook"></i>Like</a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i>Tweet</a></li>
+                    <li><a href="#"><i class="fa fa-reddit"></i>Submit</a></li>
+                    <li><a href="#"><i class="fa fa-pinterest"></i>Pin It</a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o"></i>Email</a></li>
+                    <li><a href="#"><i class="fa fa-link"></i>link</a></li>
+                </ul>
+            </div><!-- /post-share -->
+            <div class="post-meta">
+                <p class="author">By: <a href="#">John Doe</a></p>
+                <div class="post-tags">
+                    Tags:
+                    <ul>
+                        <li>Travel</li>
+                        <li>Fashion</li>
+                        <li>Lifestyle</li>
+                    </ul>
+                </div><!-- /post-tags -->
+            </div><!-- /post-meta -->
+            <div class="post-author">
+                <figure class="avatar">
+                    <img src="/src/assets/img/misc/author.png" alt="Maverick Author">
+                </figure>
+                <div class="author-details">
+                    <h2>John Doe</h2>
+                    <p>This is a description of the author. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae accumsan nisl. Donec at laoreet sapien, eget facilisis velit.</p>
+                    <ul class="social-icons small">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                </div><!-- /author-details -->
+            </div><!-- /post-author -->
+            <related-posts></related-posts>
+            <comments></comments>
+        </article>
+    </div><!-- /contents-inner -->
   </transition>
 </template>
 
@@ -75,7 +64,7 @@
 import BodySidebar from '../elements/BodySidebar.vue'
 import RelatedPosts from '../elements/RelatedPosts.vue'
 import Comments from '../elements/Comments.vue'
-import axios from 'axios'
+import axios from '../../axios-auth'
 
 export default {
   name: 'Article',

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <router-link v-if="!authenticated" to="/login" id="login"><i class="fa fa-github-alt"></i></router-link>
-    <router-link v-if="authenticated" to="/admin" id="login"><i class="fa fa-tachometer "></i></router-link>
+    <router-link v-if="!authenticated" to="/login" id="login" class="nav-icons"><i class="fa fa-github-alt"></i></router-link>
+    <a v-if="authenticated" @click.prevent="onLogout" href="logout" id="logout" class="nav-icons"><i class="fa fa-sign-out"></i></a>
     <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled }">
       <div class="container">
         <div class="row">
@@ -99,9 +99,10 @@
                                 </span>
                             </a>
                             <div class="logo-wrapper">
-                                <a href="#" class="logo">
+                                <router-link v-if="authenticated" to="/admin">
                                     <img id="logo" src="/src/assets/shmoothies-logo.png" alt="Shmoothies Logo">
-                                </a>
+                                </router-link>
+                                  <img id="logo" v-if="!authenticated" src="/src/assets/shmoothies-logo.png" alt="Shmoothies Logo">
                             </div><!-- /logo-wrapper -->
                             <div class="search-container" v-bind:class="{ 'form-is-showing' : showSearch }">
                                 <a href="#" class="trigger" v-on:click.prevent="toggleSearch">
@@ -115,9 +116,9 @@
                             </div><!-- /search-container -->
                             <ul class="main-nav-items" v-bind:class="{ 'show-sub' : showMobileNav }">
                                 <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-                                <router-link to="/category/smoothies/first-article" tag="li" active-class="active"><a>Smoothies</a></router-link>
-                                <router-link to="/admin" tag="li" active-class="active"><a>Desserts</a></router-link>
-                                <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
+                                <router-link to="/category/smoothies" tag="li" active-class="active"><a>Smoothies</a></router-link>
+                                <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
+                                <router-link to="/category/entrées" tag="li" active-class="active"><a>Entrées</a></router-link>
                                 <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
                                 <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
                                 <router-link to="/category/netflix" tag="li" active-class="active"><a>Netflix</a></router-link>
@@ -201,6 +202,7 @@ export default {
       scrolled: false,
       headerOffset: 400,
       showMobileNav: false,
+      showAdminNav: false,
       showMoreNav: false,
       showSearch: false
     }
@@ -211,27 +213,33 @@ export default {
     }
   },
   methods: {
-    mainHeader: function () {
+    mainHeader () {
       const main = this.$refs.mainHeader
       return main.offsetTop + main.offsetHeight
     },
-    setHeader: function () {
+    setHeader () {
       this.headerOffset = this.mainHeader()
     },
-    onScroll: function (e) {
+    onScroll (e) {
       window.scrollY >= this.headerOffset ? this.scrolled = true : this.scrolled = false
     },
-    showSidebar: function () {
+    showSidebar () {
       document.querySelector('body').classList.add('sideheader-is-visible')
     },
-    toggleMobileNav: function () {
+    toggleMobileNav () {
       this.showMobileNav = !this.showMobileNav
     },
-    showMore: function () {
+    showMore () {
       this.showMoreNav = !this.showMoreNav
     },
-    toggleSearch: function () {
+    toggleSearch () {
       this.showSearch = !this.showSearch
+    },
+    toggleAdminNav () {
+      this.showAdminNav = !this.showAdminNav
+    },
+    onLogout () {
+      this.$store.dispatch('logout')
     }
   },
   created: function () {
@@ -260,21 +268,42 @@ export default {
   right: 0;
 }
 
-#login {
+.nav-icons {
+  color: transparent;
   position: absolute;
   z-index: 21;
-  right: 20px;
-  top: 15px;
+}
+
+.nav-icons:hover {
+  color: black;
+}
+
+.nav-icons i {
+  font-size: 30px;
+}
+
+#login {
   color: transparent;
 }
+
 #login:hover {
   color: black;
 }
-#login i {
-  font-size: 30px;
+
+#logout {
+  color: black;
 }
+#logout:hover {
+  color: peru;
+}
+
+#login, #logout {
+  right: 20px;
+  top: 15px;
+}
+
 @media only screen and (min-width: 991px) and (max-width: 1080px) {
-  #login {
+  #login, #logout {
     top: 60px;
     right: 10px;
   }
