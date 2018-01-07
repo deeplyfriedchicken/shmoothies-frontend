@@ -26,6 +26,9 @@
         </article>
       </div>
     </div><!-- /blog-latest-posts -->
+    <div class="blog-navigation clearfix" v-if="moreLatest">
+      <a href="#" class="ajax-load-more">Load More</a>
+    </div><!-- /blog-navigation -->
   </div>
   <div id="popular-posts" class="tab-contents" v-bind:class="{ 'active' : isPopular }">
     <div class="contents-inner grid-view clearfix">
@@ -48,11 +51,11 @@
             </div><!-- /post-content -->
         </article>
       </div>
-    </div><!-- /blog-latest-posts -->
-  </div><!-- /blog-popular-posts -->
-  <div class="blog-navigation clearfix">
+    </div>
+    <div class="blog-navigation clearfix" v-if="morePopular">
       <a href="#" class="ajax-load-more">Load More</a>
-  </div><!-- /blog-navigation -->
+    </div><!-- /blog-navigation -->
+  </div><!-- /blog-popular-posts -->
 </div>
 </template>
 
@@ -65,6 +68,8 @@ export default {
     return {
       latest: [],
       popular: [],
+      moreLatest: null,
+      morePopular: null,
       isLatest: true,
       isPopular: false
     }
@@ -85,9 +90,11 @@ export default {
     },
     getArticles (type) {
       const key = type === 'published' ? 'latest' : 'popular'
+      const more = type === 'published' ? 'moreLatest' : 'morePopular'
       axios.get(`/api/articles/list/${type}/?limit=10`)
         .then(res => {
           this[key] = res.data.results
+          this[more] = res.data.next
         })
         .catch(error => console.log(error))
     }
@@ -105,7 +112,7 @@ export default {
 }
 figure {
   height: 216px;
-  width: 310px;
+  width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

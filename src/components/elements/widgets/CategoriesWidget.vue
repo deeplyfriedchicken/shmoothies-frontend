@@ -2,7 +2,9 @@
   <div class="widget widget_categories">
     <h5>Categories</h5>
     <ul>
-        <li v-for="category in categories"><a href="#">{{ category.name }}</a></li>
+        <li v-for="category in categories">
+          <router-link :to="`/category/${category.name}`">{{ category.name | capitalize }}</router-link> ({{ category.count }})
+        </li>
     </ul>
   </div><!-- /widget -->
 </template>

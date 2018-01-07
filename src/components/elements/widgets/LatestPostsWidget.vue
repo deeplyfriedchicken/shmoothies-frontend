@@ -8,7 +8,7 @@
           </div>
           <div class="post-content">
               <p class="post-title"><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.title }}</router-link></p>
-              <span class="category">{{ article.category.name }}</span>
+              <span class="category">{{ article.category.name | capitalize }}</span>
               <span class="post-date">{{ article.date_created | moment("from", "now") }}</span>
           </div>
         </li>

@@ -11,16 +11,7 @@
     </header>
     <div class="widget widget_nav_menu">
         <ul>
-            <li><a href="#">Popular</a></li>
-            <li><a href="#">Fashion</a></li>
-            <li><a href="#">Lifestyle</a></li>
-            <li><a href="#">Arts</a></li>
-            <li><a href="#">Design</a></li>
-            <li><a href="#">Music</a></li>
-            <li><a href="#">Entertainment</a></li>
-            <li><a href="#">Travel</a></li>
-            <li><a href="#">Gadgets</a></li>
-            <li><a href="#">Food</a></li>
+          <li v-for="category in categories"><router-link :to="`/category/${category.name}`">{{ category.name | capitalize }}</router-link></li>
         </ul>
     </div>
     <div class="widget widget_nav_menu">
@@ -48,6 +39,7 @@
 
 <script>
 import PerfectScrollbar from 'perfect-scrollbar'
+import axios from '../../axios-auth'
 
 export default {
   name: 'Sidebar',
@@ -55,6 +47,17 @@ export default {
     toggleSidebar: function () {
       document.querySelector('body').classList.remove('sideheader-is-visible')
     }
+  },
+  data () {
+    return {
+      categories: []
+    }
+  },
+  created () {
+    axios.get('/api/category/')
+      .then(res => {
+        this.categories = res.data.results
+      })
   },
   mounted: function () {
     let sideheader = this.$refs.sideheader

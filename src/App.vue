@@ -20,18 +20,11 @@
             </div><!-- /logo-container -->
             <ul class="main-nav-items"><!-- Stick Nav Items! -->
               <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-              <router-link to="/category/smoothies/first-article" tag="li" active-class="active"><a>Smoothies</a></router-link>
-              <router-link to="/admin" tag="li" active-class="active"><a>Desserts</a></router-link>
-              <router-link to="/category/entrees" tag="li" active-class="active"><a>Entrées</a></router-link>
-              <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
-              <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
-              <router-link to="/category/netflix" tag="li" active-class="active"><a>Netflix</a></router-link>
+              <router-link :to="`/category/${route}`" tag="li" active-class="active" v-for="route in routes" v-bind:data="route" v-bind:key="route" exact><a>{{ route }}</a></router-link>
               <li class="has-children">
                   <a href="#">More</a>
                   <ul>
-                      <router-link to="/category/music" tag="li" active-class="active"><a>Music</a></router-link>
-                      <router-link to="/category/sports" tag="li" active-class="active"><a>Sports</a></router-link>
-                      <router-link to="/category/technology" tag="li" active-class="active"><a>Technology</a></router-link>
+                    <router-link :to="`/category/${route}`" tag="li" active-class="active" v-for="route in moreRoutes" v-bind:data="route" v-bind:key="route" exact><a>{{ route }}</a></router-link>
                   </ul>
               </li>
           </ul>
@@ -116,19 +109,12 @@
                             </div><!-- /search-container -->
                             <ul class="main-nav-items" v-bind:class="{ 'show-sub' : showMobileNav }">
                                 <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-                                <router-link to="/category/smoothies" tag="li" active-class="active"><a>Smoothies</a></router-link>
-                                <router-link to="/category/desserts" tag="li" active-class="active"><a>Desserts</a></router-link>
-                                <router-link to="/category/entrées" tag="li" active-class="active"><a>Entrées</a></router-link>
-                                <router-link to="/category/snacks" tag="li" active-class="active"><a>Snacks</a></router-link>
-                                <router-link to="/category/reviews" tag="li" active-class="active"><a>Reviews</a></router-link>
-                                <router-link to="/category/netflix" tag="li" active-class="active"><a>Netflix</a></router-link>
+                                <router-link :to="`/category/${route}`" tag="li" active-class="active" v-for="route in routes" v-bind:data="route" v-bind:key="route" exact><a>{{ route }}</a></router-link>
                                 <li class="has-children" v-on:click.prevent="showMore" v-bind:class="{ 'show-sub' : showMoreNav }">
-                                    <a href="#">More</a>
-                                    <ul>
-                                        <router-link to="/category/music" tag="li" active-class="active"><a>Music</a></router-link>
-                                        <router-link to="/category/sports" tag="li" active-class="active"><a>Sports</a></router-link>
-                                        <router-link to="/category/technology" tag="li" active-class="active"><a>Technology</a></router-link>
-                                    </ul>
+                                  <a href="#">More</a>
+                                  <ul>
+                                    <router-link :to="`/category/${route}`" tag="li" active-class="active" v-for="route in moreRoutes" v-bind:data="route" v-bind:key="route" exact><a>{{ route }}</a></router-link>
+                                  </ul>
                                 </li>
                             </ul>
                             <ul class="social-icons">
@@ -155,7 +141,7 @@
                             <h5>About Us</h5>
                             <div class="textwidget">
                                 <img src="/src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p>Welcome to Shmoothies where we talk about anything and everything relatable!</p>
                                 <form  class="subscribe-form">
                                     <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
                                     <button><i class="fa fa-envelope-o"></i></button>
@@ -176,7 +162,7 @@
 
         <div id="bottom-footer">
             <social-widget></social-widget>
-            <p class="copyright">Copyright © 2017 Shmoothies.</p>
+            <p class="copyright">Copyright © 2017 Shmoothies</p>
         </div><!-- /bottom-footer -->
       </section><!-- /wrapper -->
   </div>
@@ -204,7 +190,20 @@ export default {
       showMobileNav: false,
       showAdminNav: false,
       showMoreNav: false,
-      showSearch: false
+      showSearch: false,
+      routes: [
+        'smoothies',
+        'desserts',
+        'restaurants',
+        'netflix',
+        'music',
+        'college'
+      ],
+      moreRoutes: [
+        'technology',
+        'anime',
+        'sports'
+      ]
     }
   },
   computed: {

@@ -16,6 +16,14 @@ Vue.use(ToggleButton)
 
 Vue.use(require('vue-moment'))
 
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  })
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

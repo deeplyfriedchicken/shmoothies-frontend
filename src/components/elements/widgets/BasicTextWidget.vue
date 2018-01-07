@@ -1,8 +1,8 @@
 <template>
   <div class="widget widget_text">
-    <h5>Basic Text</h5>
+    <h5>Shmoothies!</h5>
     <div class="textwidget">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Welcome to Shmoothies where we talk about anything and everything relatable!</p>
     </div>
   </div><!-- /widget -->
 </template>
