@@ -4,8 +4,10 @@
       <slick ref="slick">
         <article class="blog-post" v-for="article in articles">
           <header>
-              <figure class="slick" :style="`background-image: url(${ article.cover_photo.url })`">
-              </figure>
+              <router-link :to="`category/${ article.category.name.toLowerCase()}/${ article.slug }`">
+                <figure class="slick" :style="`background-image: url(${ article.cover_photo.url })`">
+                </figure>
+              </router-link>
               <ul class="categories">
                   <li><router-link :to="`category/${ article.category.name.toLowerCase() }`">{{ article.category.name }}</router-link></li>
               </ul>

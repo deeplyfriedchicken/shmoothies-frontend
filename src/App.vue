@@ -60,7 +60,7 @@
                             </span>
                         </a>
                         <ul class="top-nav">
-                            <li><a href="#"><i class="fa fa-home"></i></a></li>
+                            <li><router-link to="/"><i class="fa fa-home"></i></router-link></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="#">Terms</a></li>
@@ -69,9 +69,9 @@
                             <a href="#" class="trigger" v-on:click.prevent="toggleSearch">
                                 <i class="fa fa-search"></i>
                             </a>
-                            <form action="#" class="header-search-form">
+                            <form action="#" class="header-search-form" v-on:submit.prevent="search">
                                 <div class="input-container">
-                                    <input type="search" placeholder="Search..">
+                                  <input type="search" placeholder="Search..." v-model="query">
                                 </div>
                             </form>
                         </div><!-- /search-container -->
@@ -191,6 +191,7 @@ export default {
       showAdminNav: false,
       showMoreNav: false,
       showSearch: false,
+      query: null,
       routes: [
         'smoothies',
         'desserts',
@@ -233,6 +234,11 @@ export default {
     },
     toggleSearch () {
       this.showSearch = !this.showSearch
+    },
+    search () {
+      if (this.query) {
+        this.$router.push(`/search/${this.query}`)
+      }
     },
     toggleAdminNav () {
       this.showAdminNav = !this.showAdminNav

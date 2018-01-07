@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/components/pages/Home'
 import Login from '@/components/pages/Login'
+import Search from '@/components/pages/Search'
 import Article from '@/components/pages/Article'
 import Page from '@/components/pages/Page'
 import PageCategory from '@/components/pages/PageCategory'
@@ -23,6 +24,11 @@ export default new Router({
           path: '',
           name: 'Home',
           component: Home
+        },
+        {
+          path: '/search/:query',
+          name: 'Search',
+          component: Search
         },
         {
           path: 'category/:category',
