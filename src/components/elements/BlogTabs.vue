@@ -4,207 +4,51 @@
       <a href="#latest-posts" class="active" v-on:click.prevent="toggleTabs">Latest Stories</a>
       <a href="#popular-posts" v-on:click.prevent="toggleTabs">Popular Stories</a>
   </div><!-- /page-titlebar -->
-  <div id="latest-posts" class="tab-contents" v-bind:class="{ 'active' : latest }">
-      <div class="contents-inner grid-view clearfix">
-        <div class="row">
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Fashion</a></li>
-                  </ul>
-                  <h3><a href="#">Vintage Supply Co. Unveils All New Fall Collection</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Travel</a></li>
-                  </ul>
-                  <h3><a href="#">Exploring The Great Northwest</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div><!-- /post-content -->
-          </article>
-        </div>
-        <div class="row">
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Food</a></li>
-                  </ul>
-                  <h3><a href="#">The Best Eateries In New York City</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Lifestyle</a></li>
-                  </ul>
-                  <h3><a href="#">Exclusive Interview With Pro Skater Derrick Johnson</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-              </div><!-- /post-content -->
-          </article>
-        </div>
-      </div><!-- /contenblog-popular-poststs-inner -->
-  </div><!-- /blog-latest-posts -->
-  <div id="popular-posts" class="tab-contents" v-bind:class="{ 'active' : popular }">
-      <div class="contents-inner grid-view clearfix">
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Fashion</a></li>
-                  </ul>
-                  <h3><a href="#">BIRBTres Bella Introduces The All New Low Cut Boot Collection</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Lifestyle</a></li>
-                  </ul>
-                  <h3><a href="#">Exclusive Interview With Pro Skater Derrick Johnson</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Food</a></li>
-                  </ul>
-                  <h3><a href="#">The Best Eateries In New York City</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Desgin</a></li>
-                  </ul>
-                  <h3><a href="#">Innovative Standing Desk &amp; Bike Rack by Artifox</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Travel</a></li>
-                  </ul>
-                  <h3><a href="#">Exploring The Great Northwest</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              </div><!-- /post-content -->
-          </article>
-          <article class="blog-post col-md-6 col-sm-6">
-              <header>
-                  <figure>
-                      <img src="http://placehold.it/310x216">
-                  </figure>
-                  <ul class="categories">
-                      <li><a href="#">Fashion</a></li>
-                  </ul>
-                  <h3><a href="#">Vintage Supply Co. Unveils All New Fall Collection</a></h3>
-                  <div class="meta">
-                      <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                      <span>6052 Views</span>
-                      <span><a href="#">8 Comments</a></span>
-                  </div><!-- /meta -->
-              </header>
-              <div class="post-content">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-              </div><!-- /post-content -->
-          </article>
-      </div><!-- /contents-inner -->
+  <div id="latest-posts" class="tab-contents" v-bind:class="{ 'active' : isLatest }">
+    <div class="contents-inner grid-view clearfix">
+      <div class="row" v-for="i in Math.ceil(latest.length / 2)">
+        <article class="blog-post col-md-6 col-sm-6" v-for="article in latest.slice((i - 1) * 2, i * 2)">
+            <header>
+                <figure :style="`background-image: url(${ article.cover_photo.url })`">
+                </figure>
+                <ul class="categories">
+                    <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
+                </ul>
+                <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.slug }}</router-link></h3>
+                <div class="meta">
+                    <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
+                    <span>{{ article.views }} Views</span>
+                </div><!-- /meta -->
+            </header>
+            <div class="post-content text-center">
+                <p>{{ article.blurb }}</p>
+            </div><!-- /post-content -->
+        </article>
+      </div>
+    </div><!-- /blog-latest-posts -->
+  </div>
+  <div id="popular-posts" class="tab-contents" v-bind:class="{ 'active' : isPopular }">
+    <div class="contents-inner grid-view clearfix">
+      <div class="row" v-for="i in Math.ceil(popular.length / 2)">
+        <article class="blog-post col-md-6 col-sm-6" v-for="article in popular.slice((i - 1) * 2, i * 2)">
+            <header>
+                <figure :style="`background-image: url(${ article.cover_photo.url })`">
+                </figure>
+                <ul class="categories">
+                    <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
+                </ul>
+                <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.slug }}</router-link></h3>
+                <div class="meta">
+                    <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
+                    <span>{{ article.views }} Views</span>
+                </div><!-- /meta -->
+            </header>
+            <div class="post-content text-center">
+                <p>{{ article.blurb }}</p>
+            </div><!-- /post-content -->
+        </article>
+      </div>
+    </div><!-- /blog-latest-posts -->
   </div><!-- /blog-popular-posts -->
   <div class="blog-navigation clearfix">
       <a href="#" class="ajax-load-more">Load More</a>
@@ -213,12 +57,16 @@
 </template>
 
 <script>
+import axios from '../../axios-auth'
+
 export default {
   name: 'BlogTabs',
   data () {
     return {
-      latest: true,
-      popular: false
+      latest: [],
+      popular: [],
+      isLatest: true,
+      isPopular: false
     }
   },
   methods: {
@@ -226,15 +74,27 @@ export default {
       e.target.classList.add('active')
       let sibling = e.target.nextElementSibling
       if (sibling) {
-        this.latest = true
-        this.popular = false
+        this.isLatest = true
+        this.isPopular = false
       } else {
         sibling = e.target.previousElementSibling
-        this.latest = false
-        this.popular = true
+        this.isLatest = false
+        this.isPopular = true
       }
       sibling.classList.remove('active')
+    },
+    getArticles (type) {
+      const key = type === 'published' ? 'latest' : 'popular'
+      axios.get(`/api/articles/list/${type}/?limit=10`)
+        .then(res => {
+          this[key] = res.data.results
+        })
+        .catch(error => console.log(error))
     }
+  },
+  created () {
+    this.getArticles('published')
+    this.getArticles('popular')
   }
 }
 </script>
@@ -242,5 +102,12 @@ export default {
 <style scoped>
 .row {
   margin: 0;
+}
+figure {
+  height: 216px;
+  width: 310px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 </style>

@@ -3,17 +3,17 @@
     <div class="contents-inner clearfix">
         <article class="blog-post col-md-12">
             <header>
-                <h3 contenteditable="true" ref="title" v-on:keyup="updateInput('title')" v-once>{{ article.title }}</h3>
+                <h3 contenteditable="true" ref="title" v-on:blur="updateInput('title')">{{ article.title }}</h3>
                 <ul class="categories">
-                  <li><a contenteditable="true" ref="category" v-on:keyup="updateInput('category')" v-once>{{ article.category.name }}</a></li>
+                  <li><a contenteditable="true" ref="category" v-on:blur="updateInput('category')">{{ article.category.name }}</a></li>
                 </ul>
-                <h5 contenteditable="true" ref="blurb" v-on:keyup="updateInput('blurb')" v-once>{{ article.blurb }}</h5>
+                <h5 contenteditable="true" ref="blurb" v-on:blur="updateInput('blurb')">{{ article.blurb }}</h5>
                 <figure>
                   <form enctype="multipart/form-data" novalidate>
                     <input id="cover" name="url" type="file" accept="image/*" ref="cover" @change="uploadImage($event.target.name, $event.target.files)">
                     <label for="cover" class="upload">
                       <i class="fa fa-upload" v-if="!imageUploaded"></i>
-                      <img v-if="imageUploaded" :src="image.url" >
+                      <img v-if="article.cover_photo" :src="article.cover_photo.url" >
                     </label>
                   </form>
                 </figure>
@@ -65,7 +65,8 @@
               </div>
               <input type="file" id="quill-image" class="hide-input" ref="image" @change="quillUpload($event.target)">
               <quill-editor ref="editor" :options="editorOption" v-model="article.content"></quill-editor>
-              <button class="btn btn-primary" @click.prevent="submitArticle">Post!</button>
+              <button v-if="!editing" class="btn btn-primary" @click.prevent="submitArticle">Post!</button>
+              <button v-if="editing" class="btn btn-primary" @click.prevent="updateArticle">Update!</button>
             </div><!-- /post-content -->
             <div class="post-meta">
                 <p class="author">By: <a href="#">{{ $parent.user.first_name }} {{ $parent.user.last_name }}</a></p>
@@ -99,22 +100,34 @@ export default {
   components: {
     quillEditor
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (vm.$route.params.slug) {
+        axios.get('/api/articles/' + vm.$route.params.slug + '/')
+        .then(res => {
+          vm.article = res.data
+          vm.article.image = vm.article.cover_photo.id
+        })
+        .catch(error => console.log(error))
+        vm.editing = true
+        vm.imageUploaded = true
+      }
+      next()
+    })
+  },
   data () {
     return {
       article: {
         blurb: null,
         category: {
-          name: 'Smoothies'
+          name: 'smoothies'
         }, // lowercase all
         content: null,
         title: null,
+        image: null, // write-only
         cover_photo: null
       },
-      image: {
-        caption: null,
-        date_created: null,
-        url: null
-      },
+      editing: false,
       imageUploaded: false,
       editorOption: {
         modules: {
@@ -143,10 +156,32 @@ export default {
   methods: {
     updateInput (key) {
       if (key === 'category') {
-        this.article.category.name = this.$refs[key].innerText
+        this.article.category.name = this.$refs[key].innerText.toLowerCase()
       } else {
         this.article[key] = this.$refs[key].innerText
       }
+    },
+    updateArticle () {
+      console.log(this.article)
+      axios.patch(`/api/articles/${this.article.slug}/`, this.article, this.$store.getters.authorizationHeader)
+        .then(res => {
+          this.article = res.data
+          this.article.image = this.article.cover_photo.id
+          this.$router.push(`/admin/edit/${res.data.slug}`)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    },
+    submitArticle () {
+      console.log(this.article)
+      axios.post('/api/articles/', this.article, this.$store.getters.authorizationHeader)
+        .then(res => {
+          this.$router.push(`/admin/edit/${res.data.slug}`)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
     },
     embedImageSource () {
       const quill = this.$refs.editor.quill
@@ -154,32 +189,11 @@ export default {
       let src = prompt('Paste image link here!')
       quill.insertEmbed(range.index, 'image', src)
     },
-    submitArticle () {
-      const config = {
-        headers: {
-          'Authorization': `Token ${this.$store.state.token}`
-        }
-      }
-      console.log(this.article)
-      axios.post('/api/articles/', this.article, config)
-        .then(res => {
-          console.log('success')
-          console.log(res)
-        })
-        .catch(function (err) {
-          console.log(err)
-        })
-    },
     quillUpload (target) {
       const formData = new FormData()
       formData.append('url', target.files[0])
       formData.append('caption', '')
-      const config = {
-        headers: {
-          'Authorization': `Token ${this.$store.state.token}`
-        }
-      }
-      axios.post('/api/images/', formData, config)
+      axios.post('/api/images/', formData, this.$store.getters.authorizationHeader)
         .then(res => {
           const data = res.data
           const quill = this.$refs.editor.quill
@@ -194,16 +208,13 @@ export default {
       const formData = new FormData()
       formData.append('url', files[0])
       formData.append('caption', '')
-      const config = {
-        headers: {
-          'Authorization': `Token ${this.$store.state.token}`
-        }
-      }
-      axios.post('/api/images/', formData, config)
+
+      axios.post('/api/images/', formData, this.$store.getters.authorizationHeader)
         .then(res => {
           const data = res.data
           this.image = data
-          this.article.cover_photo = this.image.id
+          this.article.image = this.image.id
+          this.article.cover_photo = this.image
           this.imageUploaded = true
         })
         .catch(function (err) {

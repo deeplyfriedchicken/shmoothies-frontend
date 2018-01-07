@@ -2,18 +2,26 @@
   <div class="widget widget_categories">
     <h5>Categories</h5>
     <ul>
-        <li><a href="#">Category</a> (3)</li>
-        <li><a href="#">Category</a> (10)</li>
-        <li><a href="#">Category</a> (6)</li>
-        <li><a href="#">Category</a> (2)</li>
-        <li><a href="#">Category</a> (15)</li>
-        <li><a href="#">Category</a> (7)</li>
+        <li v-for="category in categories"><a href="#">{{ category.name }}</a></li>
     </ul>
   </div><!-- /widget -->
 </template>
 
 <script>
+import axios from '../../../axios-auth'
+
 export default {
-  name: 'CategoriesWidget'
+  name: 'CategoriesWidget',
+  data () {
+    return {
+      categories: []
+    }
+  },
+  created () {
+    axios.get('/api/category/')
+      .then(res => {
+        this.categories = res.data.results
+      })
+  }
 }
 </script>

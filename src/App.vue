@@ -144,40 +144,40 @@
             </div><!-- /container -->
         </header>
       </div>
+        <transition name="blink">
+          <router-view></router-view>
+        </transition>
+        <footer id="main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="widget widget_text">
+                            <h5>About Us</h5>
+                            <div class="textwidget">
+                                <img src="/src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <form  class="subscribe-form">
+                                    <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
+                                    <button><i class="fa fa-envelope-o"></i></button>
+                                    <label class="subscribe-form-result"></label>
+                                </form>
+                            </div>
+                        </div><!-- /widget -->
+                    </div><!-- /col-md-4 -->
+                    <div class="col-md-4">
+                        <latest-posts-widget></latest-posts-widget>
+                    </div><!-- /col-md-4 -->
+                    <div class="col-md-4">
+                        <categories-widget></categories-widget>
+                    </div><!-- /col-md-4 -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </footer>
 
-          <router-view/>
-
-          <footer id="main-footer">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-4">
-                          <div class="widget widget_text">
-                              <h5>About Us</h5>
-                              <div class="textwidget">
-                                  <img src="/src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                  <form  class="subscribe-form">
-                                      <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
-                                      <button><i class="fa fa-envelope-o"></i></button>
-                                      <label class="subscribe-form-result"></label>
-                                  </form>
-                              </div>
-                          </div><!-- /widget -->
-                      </div><!-- /col-md-4 -->
-                      <div class="col-md-4">
-                          <latest-posts-widget></latest-posts-widget>
-                      </div><!-- /col-md-4 -->
-                      <div class="col-md-4">
-                          <categories-widget></categories-widget>
-                      </div><!-- /col-md-4 -->
-                  </div><!-- /row -->
-              </div><!-- /container -->
-          </footer>
-
-          <div id="bottom-footer">
-              <social-widget></social-widget>
-              <p class="copyright">Copyright © 2017 Shmoothies.</p>
-          </div><!-- /bottom-footer -->
+        <div id="bottom-footer">
+            <social-widget></social-widget>
+            <p class="copyright">Copyright © 2017 Shmoothies.</p>
+        </div><!-- /bottom-footer -->
       </section><!-- /wrapper -->
   </div>
 </template>
@@ -256,6 +256,14 @@ export default {
 </script>
 
 <style>
+.blink-enter-active {
+  transition: opacity 1s ease;
+}
+
+.blink-enter, .blink-leave-to {
+  opacity: 0
+}
+
 #main-footer .widget form button {
   border-color: #404040;
   background-color: rgb(40,40,40);

@@ -3,7 +3,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <router-view></router-view>
+              <transition name="blink" mode="out-in" appear>
+                <router-view :key="$route.fullPath"></router-view>
+              </transition>
             </div><!-- /col-md-8 -->
             <div class="col-md-4">
                 <body-sidebar></body-sidebar>
@@ -23,3 +25,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

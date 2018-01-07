@@ -3,73 +3,26 @@
       <div class="heading clearfix">
           <a href="#">{{ this.$route.params.category }}</a>
       </div><!-- /heading -->
-      <div class="contents-inner list-view clearfix">
-          <article class="blog-post col-md-12">
+      <div class="contents-inner list-view clearfix" v-if="articles">
+          <article class="blog-post col-md-12" v-for="article in articles">
               <aside>
                   <figure>
-                      <img src="http://placehold.it/330x230">
+                      <router-link :to="`/category/${article.category.name}/${article.slug}`"><img :src="article.cover_photo.url"></router-link>
                   </figure>
               </aside>
               <div class="contents">
                   <header>
                       <ul class="categories">
-                          <li><a href="#">Fashion</a></li>
+                          <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
                       </ul>
-                      <h3><a href="#">Tres Bella Introduces The All New Low Cut Boot Collection</a></h3>
+                      <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.title }}</router-link></h3>
                       <div class="meta">
-                          <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                          <span>6052 Views</span>
-                          <span><a href="#">8 Comments</a></span>
+                          <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
+                          <span>{{ article.views }} Views</span>
                       </div><!-- /meta -->
                   </header>
-                  <div class="post-content">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
-                  </div><!-- /post-content -->
-              </div>
-          </article>
-          <article class="blog-post col-md-12">
-              <aside>
-                  <figure>
-                      <img src="http://placehold.it/330x230">
-                  </figure>
-              </aside>
-              <div class="contents">
-                  <header>
-                      <ul class="categories">
-                          <li><a href="#">Food</a></li>
-                      </ul>
-                      <h3><a href="#">The Best Eateries In New York City</a></h3>
-                      <div class="meta">
-                          <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                          <span>6052 Views</span>
-                          <span><a href="#">8 Comments</a></span>
-                      </div><!-- /meta -->
-                  </header>
-                  <div class="post-content">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                  </div><!-- /post-content -->
-              </div>
-          </article>
-          <article class="blog-post col-md-12">
-              <aside>
-                  <figure>
-                      <img src="http://placehold.it/330x230">
-                  </figure>
-              </aside>
-              <div class="contents">
-                  <header>
-                      <ul class="categories">
-                          <li><a href="#">Lifestyle</a></li>
-                      </ul>
-                      <h3><a href="#">Exclusive Interview With Pro Skater Derrick Johnson</a></h3>
-                      <div class="meta">
-                          <span><time datetime="2015-09-03">July 03, 2015</time></span>
-                          <span>6052 Views</span>
-                          <span><a href="#">8 Comments</a></span>
-                      </div><!-- /meta -->
-                  </header>
-                  <div class="post-content">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. </p>
+                  <div class="post-content text-center">
+                      <p>{{ article.blurb }}</p>
                   </div><!-- /post-content -->
               </div>
           </article>
@@ -81,7 +34,32 @@
 </template>
 
 <script>
+import axios from '../../axios-auth'
+
 export default {
-  name: 'PageCategory'
+  name: 'PageCategory',
+  data () {
+    return {
+      articles: []
+    }
+  },
+  methods: {
+    getArticles () {
+      axios.get('/api/articles/category/' + this.$route.params.category + '/')
+      .then(res => {
+        const data = res.data
+        this.articles = data.results
+      })
+      .catch(error => console.log(error))
+    }
+  },
+  created () {
+    this.getArticles()
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.articles = null
+    this.getArticles()
+    next()
+  }
 }
 </script>

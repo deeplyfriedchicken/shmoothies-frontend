@@ -2,42 +2,43 @@
   <div class="widget widget_latest_posts_entries">
     <h5>Latest Posts</h5>
     <ul>
-        <li>
-            <div class="featured-image">
-                <img src="http://placehold.it/90x70">
-            </div>
-            <div class="post-content">
-                <p class="post-title"><a href="#">Great Outdoor Travel Tips For Beginners</a></p>
-                <span class="category">Travel</span>
-                <span class="post-date">August 5, 2015</span>
-            </div>
-        </li>
-        <li>
-            <div class="featured-image">
-                <img src="http://placehold.it/90x70">
-            </div>
-            <div class="post-content">
-                <p class="post-title"><a href="#">Denim 2015 Fall Exclusives</a></p>
-                <span class="category">Fashio</span>
-                <span class="post-date">July 27, 2015</span>
-            </div>
-        </li>
-        <li>
-            <div class="featured-image">
-                <img src="http://placehold.it/90x70">
-            </div>
-            <div class="post-content">
-                <p class="post-title"><a href="#">Pacific Goods New Arrivals</a></p>
-                <span class="category">Fashio</span>
-                <span class="post-date">July 11, 2015</span>
-            </div>
+        <li v-for="article in articles">
+          <div class="featured-image">
+            <router-link :to="`/category/${article.category.name}/${article.slug}`"><img :src="article.cover_photo.url"></router-link>
+          </div>
+          <div class="post-content">
+              <p class="post-title"><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.title }}</router-link></p>
+              <span class="category">{{ article.category.name }}</span>
+              <span class="post-date">{{ article.date_created | moment("from", "now") }}</span>
+          </div>
         </li>
     </ul>
   </div><!-- /widget -->
 </template>
 
 <script>
+import axios from '../../../axios-auth'
+
 export default {
-  name: 'LatestPostsWidget'
+  name: 'LatestPostsWidget',
+  data () {
+    return {
+      articles: []
+    }
+  },
+  created () {
+    axios.get('/api/articles/list/published/?limit=3')
+      .then(res => {
+        const data = res.data
+        this.articles = data.results
+      })
+      .catch(error => console.log(error))
+  }
 }
 </script>
+
+<style>
+.featured-image img {
+  width: 90px;
+}
+</style>

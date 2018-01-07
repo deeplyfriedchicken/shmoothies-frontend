@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h1>Login</h1>
-    <h2 v-if="authenticated">Authenticated!</h2>
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 offset-md-2">
+      <h1>Login</h1>
       <form action="#" class="maverick-form">
         <div class="row">
             <div class="col-md-12">
@@ -40,7 +39,6 @@ export default {
   },
   methods: {
     onSubmit () {
-      console.log(this.credentials)
       this.$store.dispatch('login', {
         username: this.credentials.username,
         password: this.credentials.password

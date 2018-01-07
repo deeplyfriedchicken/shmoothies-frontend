@@ -74,6 +74,13 @@ export default new Vuex.Store({
   getters: {
     isAuthenticated (state) {
       return state.token !== null
+    },
+    authorizationHeader (state) {
+      return {
+        headers: {
+          'Authorization': `Token ${state.token}`
+        }
+      }
     }
   }
 })
