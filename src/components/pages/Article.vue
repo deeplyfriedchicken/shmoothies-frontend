@@ -60,6 +60,10 @@ import RelatedPosts from '../elements/RelatedPosts.vue'
 import Comments from '../elements/Comments.vue'
 import axios from '../../axios-auth'
 
+import '../../../node_modules/quill/dist/quill.core.css'
+import '../../../node_modules/quill/dist/quill.snow.css'
+import '../../../node_modules/quill/dist/quill.bubble.css'
+
 export default {
   name: 'Article',
   components: {
