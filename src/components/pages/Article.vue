@@ -11,7 +11,7 @@
                 <img :src="article.cover_photo.url" :alt="article.cover_photo.caption">
               </figure>
           </header>
-          <div class="post-content" v-html="article.content">
+          <div class="ql-editor" v-html="article.content">
           </div><!-- /post-content -->
           <div class="post-share clearfix">
               <p class="counter"><span>{{ article.views }}</span>Views</p>
@@ -33,11 +33,11 @@
                   </ul>
               </div><!-- /post-tags -->
           </div><!-- /post-meta -->
-          <div class="post-author">
+          <div class="post-author" v-if="article.author">
               <figure class="avatar">
-                  <img src="/src/assets/img/misc/author.png" alt="Maverick Author">
+                  <img src="/static/assets/img/misc/author.png" :alt="`article.author.first_name }} {{ article.author.last_name`">
               </figure>
-              <div class="author-details" v-if="article.author">
+              <div class="author-details">
                   <h2>{{ article.author.first_name + ' ' + article.author.last_name }}</h2>
                   <p>This is a description of the author. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae accumsan nisl. Donec at laoreet sapien, eget facilisis velit.</p>
                   <ul class="social-icons small">
@@ -59,10 +59,6 @@ import BodySidebar from '../elements/BodySidebar.vue'
 import RelatedPosts from '../elements/RelatedPosts.vue'
 import Comments from '../elements/Comments.vue'
 import axios from '../../axios-auth'
-
-import '../../../node_modules/quill/dist/quill.core.css'
-import '../../../node_modules/quill/dist/quill.snow.css'
-import '../../../node_modules/quill/dist/quill.bubble.css'
 
 export default {
   name: 'Article',
@@ -93,5 +89,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+@import '../../../node_modules/quill/dist/quill.core.css';
+@import '../../../node_modules/quill/dist/quill.snow.css';
+@import '../../../node_modules/quill/dist/quill.bubble.css';
 </style>
