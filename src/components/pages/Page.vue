@@ -40,6 +40,12 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 991px) {
+  #action-buttons {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 992px) {
   #action-buttons {
     position: fixed;
