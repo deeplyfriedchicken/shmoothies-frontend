@@ -19,7 +19,7 @@
             </figure>
             <div class="text-left" id="v-select">
               <h2>Tags</h2>
-              <v-select :close-on-select="false" :on-search="getTags" v-model="articleTags" multiple :taggable="true" :options="tags" placeholder="Add tags here!"></v-select>
+              <v-select :close-on-select="false" :on-change="updateTags" :on-search="getTags" v-model="articleTags" multiple :taggable="true" :options="tags" placeholder="Add tags here!"></v-select>
             </div>
           </header>
           <div class="post-content">
@@ -100,7 +100,7 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (vm.$route.params.slug) {
-        axios.get('/api/articles/' + vm.$route.params.slug + '/')
+        axios.get('/api/articles/' + vm.$route.params.slug + '/', vm.$store.getters.authorizationHeader)
         .then(res => {
           vm.article = res.data
           vm.article.image = vm.article.cover_photo.id
