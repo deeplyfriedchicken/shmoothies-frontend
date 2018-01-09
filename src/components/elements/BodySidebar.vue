@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar">
     <div class="widget widget_search">
-        <form role="search" class="search-form" action="#">
-            <input type="search" class="search-field" name="s" title="Search for:" placeholder="Search…">
+        <form role="search" class="search-form" action="#" v-on:submit.prevent="search">
+            <input type="search" v-model="query" class="search-field" name="s" title="Search for:" placeholder="Search…">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div><!-- /widget -->
@@ -32,6 +32,18 @@ export default {
     'tag-cloud-widget': TagCloudWidget,
     'basic-text-widget': BasicTextWidget,
     'social-widget': SocialWidget
+  },
+  data () {
+    return {
+      query: null
+    }
+  },
+  methods: {
+    search () {
+      if (this.query) {
+        this.$router.push(`/search/${this.query.replace(/ /g, '+')}`)
+      }
+    }
   }
 }
 </script>

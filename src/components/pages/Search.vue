@@ -45,10 +45,8 @@ export default {
   },
   methods: {
     getArticles () {
-      console.log('/api/articles/list/published/?search=' + this.$route.params.query)
       axios.get('/api/articles/list/published/?search=' + this.$route.params.query)
       .then(res => {
-        console.log(res)
         const data = res.data
         this.articles = data.results
       })

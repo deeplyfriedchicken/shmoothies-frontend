@@ -29,7 +29,7 @@ export default {
   created () {
     axios.get('/api/images/')
       .then(res => {
-        this.images = res.data
+        this.images = res.data.results
       })
   }
 }

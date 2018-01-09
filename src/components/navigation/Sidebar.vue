@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import PerfectScrollbar from 'perfect-scrollbar'
+// import PerfectScrollbar from 'perfect-scrollbar'
 import axios from '../../axios-auth'
 
 export default {
@@ -58,11 +58,6 @@ export default {
       .then(res => {
         this.categories = res.data.results
       })
-  },
-  mounted: function () {
-    let sideheader = this.$refs.sideheader
-    const sidebar = new PerfectScrollbar(sideheader)
-    sidebar.update()
   }
 }
 </script>

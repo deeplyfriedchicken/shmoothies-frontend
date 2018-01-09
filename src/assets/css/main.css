@@ -141,6 +141,10 @@ body {
   overflow-x: hidden;
 }
 
+body.sideheader-is-visible {
+  overflow: hidden;
+}
+
 section {
   overflow: hidden;
 }
@@ -1145,6 +1149,7 @@ ul, ol {
 
 .blog-post .post-meta .post-tags ul li:after {
   content: ',';
+  margin-right: 4px;
 }
 
 .blog-post .post-meta .post-tags ul li:last-child:after {
@@ -3364,6 +3369,7 @@ blockquote p {
   -webkit-transform: translateX(0);
   -ms-transform: translateX(0);
   transform: translateX(0);
+  overflow-y: scroll;
 }
 
 /* Search Container */

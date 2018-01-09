@@ -29,9 +29,7 @@
               <div class="post-tags">
                   Tags:
                   <ul>
-                      <li>Travel</li>
-                      <li>Fashion</li>
-                      <li>Lifestyle</li>
+                    <li v-for="tag in article.tags">{{ tag.label }}</li>
                   </ul>
               </div><!-- /post-tags -->
           </div><!-- /post-meta -->
@@ -51,8 +49,7 @@
                   </ul>
               </div><!-- /author-details -->
           </div><!-- /post-author -->
-          <related-posts></related-posts>
-          <comments></comments>
+          <related-posts :current="article.id"></related-posts>
       </article>
   </div><!-- /contents-inner -->
 </template>

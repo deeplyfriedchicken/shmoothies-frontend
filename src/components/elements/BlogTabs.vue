@@ -9,16 +9,18 @@
       <div class="row" v-for="i in Math.ceil(latest.length / 2)">
         <article class="blog-post col-md-6 col-sm-6" v-for="article in latest.slice((i - 1) * 2, i * 2)">
             <header>
+              <router-link :to="`/category/${article.category.name}/${article.slug}`">
                 <figure :style="`background-image: url(${ article.cover_photo.url })`">
                 </figure>
-                <ul class="categories">
-                    <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
-                </ul>
-                <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.slug }}</router-link></h3>
-                <div class="meta">
-                    <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
-                    <span>{{ article.views }} Views</span>
-                </div><!-- /meta -->
+              </router-link>
+              <ul class="categories">
+                  <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
+              </ul>
+              <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.slug }}</router-link></h3>
+              <div class="meta">
+                  <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
+                  <span>{{ article.views }} Views</span>
+              </div><!-- /meta -->
             </header>
             <div class="post-content text-center">
                 <p>{{ article.blurb }}</p>
@@ -34,21 +36,23 @@
     <div class="contents-inner grid-view clearfix">
       <div class="row" v-for="i in Math.ceil(popular.length / 2)">
         <article class="blog-post col-md-6 col-sm-6" v-for="article in popular.slice((i - 1) * 2, i * 2)">
-            <header>
+          <header>
+              <router-link :to="`/category/${article.category.name}/${article.slug}`">
                 <figure :style="`background-image: url(${ article.cover_photo.url })`">
                 </figure>
-                <ul class="categories">
-                    <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
-                </ul>
-                <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.slug }}</router-link></h3>
-                <div class="meta">
-                    <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
-                    <span>{{ article.views }} Views</span>
-                </div><!-- /meta -->
-            </header>
-            <div class="post-content text-center">
-                <p>{{ article.blurb }}</p>
-            </div><!-- /post-content -->
+              </router-link>
+              <ul class="categories">
+                  <li><router-link :to="`/category/${article.category.name}`">{{ article.category.name }}</router-link></li>
+              </ul>
+              <h3><router-link :to="`/category/${article.category.name}/${article.slug}`">{{ article.slug }}</router-link></h3>
+              <div class="meta">
+                  <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
+                  <span>{{ article.views }} Views</span>
+              </div><!-- /meta -->
+          </header>
+          <div class="post-content text-center">
+              <p>{{ article.blurb }}</p>
+          </div><!-- /post-content -->
         </article>
       </div>
     </div>

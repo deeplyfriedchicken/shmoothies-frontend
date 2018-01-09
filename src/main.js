@@ -24,6 +24,11 @@ Vue.filter('capitalize', function (value) {
   })
 })
 
+Vue.filter('plus', function (value) {
+  if (!value) return ''
+  value = value.toString().replace(/ /g, '+')
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

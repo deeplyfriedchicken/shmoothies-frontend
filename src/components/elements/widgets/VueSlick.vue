@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="slick-parent">
     <slot></slot>
   </div>
 </template>

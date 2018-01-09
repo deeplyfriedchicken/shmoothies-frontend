@@ -1,19 +1,15 @@
 <template>
   <div>
     <h1>Your Articles</h1>
-    <button class="btn btn-primary">
-      <router-link to="admin/new-article">New Article</router-link>
-    </button>
-    <button>
-      <router-link to="admin/images">Images</router-link>
-    </button>
     <div class="contents-inner list-view clearfix" v-if="articles">
         <article class="blog-post col-md-12" v-for="(article, i) in articles">
           <div class="row">
           <div class="col-md-4">
-            <figure>
-                <img :src="article.cover_photo.url">
-            </figure>
+            <router-link :to="`/admin/edit/${article.slug}`">
+              <figure>
+                  <img :src="article.cover_photo.url">
+              </figure>
+            </router-link>
           </div>
           <div class="col-md-4 text-center">
             <div class="contents">
@@ -39,6 +35,7 @@
             <div class="toggle">
               <toggle-button @change="toggleFeatured(i, article.slug)" :ref="article.id" :value="article.is_featured" :labels="{checked: 'Featured', unchecked: 'Not Featured'}" :width="150"/>
             </div>
+            <button class="btn btn-primary"><router-link :to="`admin/edit/${article.slug}`">Edit</router-link></button>
           </div>
           </div>
         </article>
@@ -96,5 +93,8 @@ export default {
 <style>
 .toggle {
   padding-bottom: 10px;
+}
+.btn a {
+  color: white;
 }
 </style>

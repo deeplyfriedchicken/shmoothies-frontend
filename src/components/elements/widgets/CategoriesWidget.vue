@@ -2,7 +2,7 @@
   <div class="widget widget_categories">
     <h5>Categories</h5>
     <ul>
-        <li v-for="category in categories">
+        <li v-if="category.count > 0" v-for="category in categories">
           <router-link :to="`/category/${category.name}`">{{ category.name | capitalize }}</router-link> ({{ category.count }})
         </li>
     </ul>
@@ -24,6 +24,7 @@ export default {
       .then(res => {
         this.categories = res.data.results
       })
+      .catch(error => console.log(error))
   }
 }
 </script>

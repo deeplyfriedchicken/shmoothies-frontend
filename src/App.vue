@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-link v-if="!authenticated" to="/login" id="login" class="nav-icons"><i class="fa fa-github-alt"></i></router-link>
-    <a v-if="authenticated" @click.prevent="onLogout" href="logout" id="logout" class="nav-icons"><i class="fa fa-sign-out"></i></a>
     <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled }">
       <div class="container">
         <div class="row">
@@ -32,10 +31,10 @@
               <a href="#" class="trigger" v-on:click.prevent="toggleSearch">
                   <i class="fa fa-search"></i>
               </a>
-              <form action="#" class="header-search-form">
-                  <div class="input-container">
-                      <input type="search" placeholder="Search..">
-                  </div>
+              <form action="#" class="header-search-form" v-on:submit.prevent="search">
+                <div class="input-container">
+                  <input type="search" placeholder="Search..." v-model="query">
+                </div>
               </form>
           </div><!-- /search-container -->
           </div><!-- /col-md-12 -->
@@ -70,9 +69,9 @@
                                 <i class="fa fa-search"></i>
                             </a>
                             <form action="#" class="header-search-form" v-on:submit.prevent="search">
-                                <div class="input-container">
-                                  <input type="search" placeholder="Search..." v-model="query">
-                                </div>
+                              <div class="input-container">
+                                <input type="search" placeholder="Search..." v-model="query">
+                              </div>
                             </form>
                         </div><!-- /search-container -->
                     </div><!-- /col-md-12 -->
@@ -101,10 +100,10 @@
                                 <a href="#" class="trigger" v-on:click.prevent="toggleSearch">
                                     <i class="fa fa-search"></i>
                                 </a>
-                                <form action="#" class="header-search-form">
-                                    <div class="input-container">
-                                        <input type="search" placeholder="Search..">
-                                    </div>
+                                <form action="#" class="header-search-form" v-on:submit.prevent="search">
+                                  <div class="input-container">
+                                    <input type="search" placeholder="Search..." v-model="query">
+                                  </div>
                                 </form>
                             </div><!-- /search-container -->
                             <ul class="main-nav-items" v-bind:class="{ 'show-sub' : showMobileNav }">
@@ -143,9 +142,9 @@
                                 <img src="/src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
                                 <p>Welcome to Shmoothies where we talk about anything and everything relatable!</p>
                                 <form  class="subscribe-form">
-                                    <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
-                                    <button><i class="fa fa-envelope-o"></i></button>
-                                    <label class="subscribe-form-result"></label>
+                                  <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
+                                  <button><i class="fa fa-envelope-o"></i></button>
+                                  <label class="subscribe-form-result"></label>
                                 </form>
                             </div>
                         </div><!-- /widget -->
@@ -237,14 +236,11 @@ export default {
     },
     search () {
       if (this.query) {
-        this.$router.push(`/search/${this.query}`)
+        this.$router.push(`/search/${this.query.replace(/ /g, '+')}`)
       }
     },
     toggleAdminNav () {
       this.showAdminNav = !this.showAdminNav
-    },
-    onLogout () {
-      this.$store.dispatch('logout')
     }
   },
   created: function () {

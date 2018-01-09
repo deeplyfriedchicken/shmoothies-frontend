@@ -48,6 +48,12 @@ export default {
       articles: []
     }
   },
+  props: ['full'],
+  watch: {
+    full () {
+      this.reInit()
+    }
+  },
   methods: {
     reInit () {
       let currIndex = this.$refs.slick.currentSlide()
@@ -80,5 +86,9 @@ figure.slick {
   height: 400px;
   background-position: 50% 50%;
   background-size: cover;
+}
+.slick-parent {
+  min-height: 0;
+  min-width: 0;
 }
 </style>
