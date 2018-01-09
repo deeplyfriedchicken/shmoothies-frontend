@@ -14,7 +14,7 @@
             </a>
             <div class="logo-container">
               <a href="#">
-                <img src="/src/assets/img/logo/shmoothies-logo3.png" alt="Shmoothies Logo">
+                <img src="/static/assets/img/logo/shmoothies-logo3.png" alt="Shmoothies Logo">
               </a>
             </div><!-- /logo-container -->
             <ul class="main-nav-items"><!-- Stick Nav Items! -->
@@ -92,9 +92,9 @@
                             </a>
                             <div class="logo-wrapper">
                                 <router-link v-if="authenticated" to="/admin">
-                                    <img id="logo" src="/src/assets/shmoothies-logo.png" alt="Shmoothies Logo">
+                                    <img id="logo" src="/static/assets/shmoothies-logo.png" alt="Shmoothies Logo">
                                 </router-link>
-                                  <img id="logo" v-if="!authenticated" src="/src/assets/shmoothies-logo.png" alt="Shmoothies Logo">
+                                  <img id="logo" v-if="!authenticated" src="/static/assets/shmoothies-logo.png" alt="Shmoothies Logo">
                             </div><!-- /logo-wrapper -->
                             <div class="search-container" v-bind:class="{ 'form-is-showing' : showSearch }">
                                 <a href="#" class="trigger" v-on:click.prevent="toggleSearch">
@@ -139,7 +139,7 @@
                         <div class="widget widget_text">
                             <h5>About Us</h5>
                             <div class="textwidget">
-                                <img src="/src/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
+                                <img src="/static/assets/img/logo/shmoothies-light.png" alt="Shmoothies.com">
                                 <p>Welcome to Shmoothies where we talk about anything and everything relatable!</p>
                                 <form  class="subscribe-form">
                                   <input type="email" class="subscribe-email" name="subscribe-email" placeholder="Sign Up For Our Newsletter">
