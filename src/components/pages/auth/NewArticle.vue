@@ -61,12 +61,14 @@
               <button class="ql-link"></button>
               <button class="ql-image"></button>
               <button class="ql-video"></button>
-              <button id="custom-button" @click="embedImageSource"><i class="fa fa-external-link"></i></button>
+              <button id="embed-image" @click="embedImageSource"><i class="fa fa-external-link"></i></button>
+              <button @click="showEmojis"><i class="fa fa-smile-o"></i></button>
               </span>
               <span class="ql-formats">
               <button class="ql-clean"></button>
               </span>
             </div>
+            <picker ref="emojis" v-bind:class="{ 'no-emoji-mart': !emojis }" @click="addEmoji"></picker>
             <input type="file" id="quill-image" class="hide-input" ref="image" @change="quillUpload($event.target)">
             <quill-editor ref="editor" :options="editorOption" v-model="article.content"></quill-editor>
             <div class="text-center margin-t-25">
@@ -82,6 +84,7 @@
 <script>
 import axios from '../../../axios-auth'
 import vSelect from 'vue-select'
+import { Picker } from 'emoji-mart-vue'
 // require styles
 import '../../../../node_modules/quill/dist/quill.core.css'
 import '../../../../node_modules/quill/dist/quill.snow.css'
@@ -127,7 +130,8 @@ export default {
   name: 'NewArticle',
   components: {
     quillEditor,
-    vSelect
+    vSelect,
+    Picker
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -161,6 +165,7 @@ export default {
       tags: [],
       articleTags: [],
       editing: false,
+      emojis: false,
       imageUploaded: false,
       editorOption: {
         modules: {
@@ -213,6 +218,15 @@ export default {
         }
       })
     },
+    showEmojis () {
+      this.emojis = !this.emojis
+    },
+    addEmoji (emoji) {
+      const quill = this.$refs.editor.quill
+      quill.focus()
+      let range = quill.getSelection()
+      quill.insertText(range.index, emoji.native)
+    },
     updateArticle () {
       axios.patch(`/api/articles/${this.article.slug}/`, this.article, this.$store.getters.authorizationHeader)
         .then(res => {
@@ -231,7 +245,9 @@ export default {
     },
     embedImageSource () {
       const quill = this.$refs.editor.quill
+      quill.focus()
       let range = quill.getSelection()
+      console.log(range)
       let src = prompt('Paste image link here!')
       quill.insertEmbed(range.index, 'image', src)
     },
@@ -243,6 +259,7 @@ export default {
         .then(res => {
           const data = res.data
           const quill = this.$refs.editor.quill
+          quill.focus()
           let range = quill.getSelection()
           quill.insertEmbed(range.index, 'image', data.url)
         })
@@ -269,6 +286,12 @@ export default {
 }
 </script>
 
+<style scoped>
+.contents-inner {
+  margin-bottom: 250px;
+}
+</style>
+
 <style>
 .margin-t-25 {
   margin-top: 25px;
@@ -286,5 +309,14 @@ export default {
 }
 .hide-input {
   display: none;
+}
+.post-content .no-emoji-mart {
+  display: none;
+}
+
+.post-content .emoji-mart {
+  position: absolute;
+  right: 0;
+  z-index: 25;
 }
 </style>
