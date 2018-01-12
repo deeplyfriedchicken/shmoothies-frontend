@@ -76,10 +76,14 @@ export default new Vuex.Store({
       return state.token !== null
     },
     authorizationHeader (state) {
-      return {
-        headers: {
-          'Authorization': `Token ${state.token}`
+      if (state.token) {
+        return {
+          headers: {
+            'Authorization': `Token ${state.token}`
+          }
         }
+      } else {
+        return null
       }
     }
   }

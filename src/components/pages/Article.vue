@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     getArticle () {
-      axios.get('/api/articles/' + this.$route.params.article + '/')
+      axios.get('/api/articles/' + this.$route.params.article + '/', this.$store.getters.authorizationHeader)
         .then(res => {
           const data = res.data
           this.article = data
