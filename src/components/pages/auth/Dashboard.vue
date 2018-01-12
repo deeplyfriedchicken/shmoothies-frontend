@@ -29,11 +29,11 @@
             </div>
           </div>
           <div class="col-md-4 text-center">
-            <div class="toggle">
-              <toggle-button @change="togglePublished(i, article.slug)" :ref="article.id" :value="article.is_published" :labels="{checked: 'Published', unchecked: 'Unpublished'}" :width="150"/>
+            <div class="toggle mb-15">
+              <toggle-button @change="togglePublished(i, article.slug)" :color="{checked: '#ad92c2'}" :ref="article.id" :value="article.is_published" :labels="{checked: 'Published', unchecked: 'Unpublished'}" :width="150"/>
             </div>
-            <div class="toggle">
-              <toggle-button @change="toggleFeatured(i, article.slug)" :ref="article.id" :value="article.is_featured" :labels="{checked: 'Featured', unchecked: 'Not Featured'}" :width="150"/>
+            <div class="toggle mb-15">
+              <toggle-button @change="toggleFeatured(i, article.slug)" :color="{checked: '#fdb721'}" :ref="article.id" :value="article.is_featured" :labels="{checked: 'Featured', unchecked: 'Not Featured'}" :width="150"/>
             </div>
             <button class="btn btn-primary"><router-link :to="`admin/edit/${article.slug}`">Edit</router-link></button>
           </div>
@@ -63,9 +63,7 @@ export default {
         .then(res => {
           console.log(res)
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        .catch(err => console.log(err))
     },
     toggleFeatured (index, slug) {
       this.articles[index].is_featured = !this.articles[index].is_featured
@@ -76,9 +74,7 @@ export default {
         .then(res => {
           console.log(res)
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        .catch(err => console.log(err))
     }
   },
   created () {
@@ -91,10 +87,15 @@ export default {
 </script>
 
 <style>
-.toggle {
-  padding-bottom: 10px;
-}
 .btn a {
   color: white;
+}
+.btn-primary {
+  background-color: rgba(173, 146, 194, 1);
+  border-color: rgba(173, 146, 194, 1);
+}
+.btn-primary:hover {
+  background-color: rgb(177, 155, 193);
+  border-color: rgb(177, 155, 193);
 }
 </style>

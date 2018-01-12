@@ -100,7 +100,7 @@ export default {
   }
   #action-buttons li i {
     background: rgba(253, 183, 33, 0.5);
-    padding: 13px;
+    padding: 11px;
     border-radius: 50%;
     text-align: center;
     vertical-align: middle;

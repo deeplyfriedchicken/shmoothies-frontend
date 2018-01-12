@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="contents-inner clearfix">
+    <div class="contents-inner clearfix mb-230">
         <article class="blog-post col-md-12">
           <header>
             <h3 contenteditable="true" ref="title" v-on:blur="updateInput('title')">{{ article.title }}</h3>
@@ -12,12 +12,12 @@
               <form enctype="multipart/form-data" novalidate>
                 <input id="cover" name="url" type="file" accept="image/*" ref="cover" @change="uploadImage($event.target.name, $event.target.files)">
                 <label for="cover" class="upload">
-                  <i class="fa fa-upload" v-if="!imageUploaded"></i>
+                  <i class="fa fa-upload mb-25" v-if="!imageUploaded"></i>
                   <img v-if="article.cover_photo" :src="article.cover_photo.url" >
                 </label>
               </form>
             </figure>
-            <div class="text-left" id="v-select">
+            <div class="text-left mb-25">
               <h2>Tags</h2>
               <v-select :close-on-select="false" :on-change="updateTags" :on-search="getTags" v-model="articleTags" multiple :taggable="true" :options="tags" placeholder="Add tags here!"></v-select>
             </div>
@@ -71,7 +71,7 @@
             <picker ref="emojis" v-bind:class="{ 'no-emoji-mart': !emojis }" @click="addEmoji"></picker>
             <input type="file" id="quill-image" class="hide-input" ref="image" @change="quillUpload($event.target)">
             <quill-editor ref="editor" :options="editorOption" v-model="article.content"></quill-editor>
-            <div class="text-center margin-t-25">
+            <div class="text-center mt-25">
               <button v-if="!editing" class="btn btn-primary" @click.prevent="submitArticle">Add Article!</button>
               <button v-if="editing" class="btn btn-primary" @click.prevent="updateArticle">Update!</button>
             </div>
@@ -287,25 +287,20 @@ export default {
 </script>
 
 <style scoped>
-.contents-inner {
-  margin-bottom: 250px;
+.blog-post header .categories li a:hover {
+  border: 1px solid #777777;
+  color: #806C8F;
+  background: white;
 }
 </style>
 
 <style>
-.margin-t-25 {
-  margin-top: 25px;
-}
 #cover {
   display: none;
-}
-#v-select {
-  margin-bottom: 15px;
 }
 .upload i {
   font-size: 40px;
   cursor: pointer;
-  margin-bottom: 20px;
 }
 .hide-input {
   display: none;
@@ -316,7 +311,7 @@ export default {
 
 .post-content .emoji-mart {
   position: absolute;
-  right: 0;
+  left: 50%;
   z-index: 25;
 }
 </style>
