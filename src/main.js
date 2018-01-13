@@ -4,11 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ToggleButton from 'vue-js-toggle-button'
+import Notifications from 'vue-notification'
 
 import store from './store'
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
+Vue.use(Notifications)
 Vue.use(ToggleButton)
 
 Vue.use(require('vue-moment'))

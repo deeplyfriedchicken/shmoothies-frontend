@@ -59,9 +59,17 @@ export default {
       const data = {
         is_published: this.articles[index].is_published
       }
+      let text = `${this.articles[index].title} has been published`
+      if (!this.articles[index].is_published) {
+        text = `${this.articles[index].title} has been unpublished`
+      }
       axios.patch(`/api/articles/${slug}/`, data, this.$store.getters.authorizationHeader)
         .then(res => {
-          console.log(res)
+          this.$notify({
+            group: 'admin',
+            title: `Updated!`,
+            text: text
+          })
         })
         .catch(err => console.log(err))
     },
@@ -70,9 +78,17 @@ export default {
       const data = {
         is_featured: this.articles[index].is_featured
       }
+      let text = `${this.articles[index].title} is now featured`
+      if (!this.articles[index].is_featured) {
+        text = `${this.articles[index].title} is not featured`
+      }
       axios.patch(`/api/articles/${slug}/`, data, this.$store.getters.authorizationHeader)
         .then(res => {
-          console.log(res)
+          this.$notify({
+            group: 'admin',
+            title: `Updated!`,
+            text: text
+          })
         })
         .catch(err => console.log(err))
     }

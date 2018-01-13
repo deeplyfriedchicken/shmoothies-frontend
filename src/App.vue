@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications position="bottom center" group="admin"/>
     <router-link v-if="!authenticated" to="/login" id="login" class="nav-icons"><i class="fa fa-github-alt"></i></router-link>
     <div class="sticky-nav" v-bind:class="{ 'sticky-nav-showing': scrolled }">
       <div class="container">

@@ -18,8 +18,8 @@
             <div v-if="article.cover_photo">
               <img :src="article.cover_photo.url" :alt="article.cover_photo.caption">
               <div class="text-center">
-                <button class="btn btn-success" @click="showModal = true">Recrop</button>
-                <button class="btn btn-warning" @click="$refs.cover.click()">Change Photo</button>
+                <button class="btn btn-primary" @click="showModal = true">Recrop</button>
+                <button class="btn btn-success" @click="$refs.cover.click()">Change Photo</button>
               </div>
             </div>
             <div class="modal text-center" v-if="showModal">
@@ -36,16 +36,23 @@
                   v-if="imgSrc"
                   :src="imgSrc">
                 </vue-cropper>
-                <button class="btn btn-primary crop-btn" @click="getCropData">Crop</button>
+                <button class="btn btn-primary crop-btn" @click="cropPhoto">Crop</button>
               </div>
             </div>
           </figure>
-          <div class="text-left mb-25">
+          <div class="text-left mb-25" @click="isSaved = false">
             <h2>Tags</h2>
-            <v-select :close-on-select="false" :on-change="updateTags" :on-search="getTags" v-model="articleTags" multiple :taggable="true" :options="tags" placeholder="Add tags here!"></v-select>
+            <v-select
+              :close-on-select="false"
+              :on-search="getTags"
+              v-model="article.tags"
+              multiple
+              taggable
+              :options="tags"
+              placeholder="Add tags here!"></v-select>
           </div>
         </header>
-        <div class="post-content">
+        <div class="post-content" @click="isSaved = false">
           <div id="toolbar">
             <span class="ql-formats">
             <select class="ql-font"></select>
@@ -95,8 +102,8 @@
           <input type="file" id="quill-image" class="hide-input" ref="image" @change="quillUpload($event.target)">
           <quill-editor ref="editor" :options="editorOption" v-model="article.content"></quill-editor>
           <div class="text-center mt-25">
-            <button v-if="!editing" class="btn btn-primary" @click.prevent="submitArticle">Add Article!</button>
-            <button v-if="editing" class="btn btn-primary" @click.prevent="updateArticle">Update!</button>
+            <button v-if="!editing" class="btn btn-primary" v-bind:class="{ 'disabled' : isSaved }" @click.prevent="submitArticle">Add Article!</button>
+            <button v-if="editing" class="btn btn-primary" v-bind:class="{ 'disabled' : isSaved }" @click.prevent="updateArticle">Update!</button>
           </div>
         </div><!-- /post-content -->
       </article>
@@ -164,7 +171,6 @@ export default {
         axios.get('/api/articles/' + vm.$route.params.slug + '/', vm.$store.getters.authorizationHeader)
         .then(res => {
           vm.article = res.data
-          vm.articleTags = vm.article.tags
           vm.article.image = vm.article.cover_photo.id
           vm.imgName = vm.article.cover_photo.url.split('media/images/')[1]
           vm.imgSrc = vm.article.cover_photo.url
@@ -174,6 +180,18 @@ export default {
       }
       next()
     })
+  },
+  beforeRouteLeave (to, from, next) {
+    if (!this.isSaved) {
+      const answer = window.confirm('Do you really want to leave? You may have unsaved changes!')
+      if (answer) {
+        next()
+      } else {
+        next(false)
+      }
+    } else {
+      next()
+    }
   },
   data () {
     return {
@@ -189,13 +207,12 @@ export default {
         cover_photo: null
       },
       tags: [],
-      articleTags: [],
-      editing: false,
+      isSaved: true,
+      editing: false, // determines if the user sees the update or the create button
       emojis: false,
       showModal: false,
       imgSrc: null,
       imgName: null,
-      notification: null,
       editorOption: {
         modules: {
           toolbar: {
@@ -228,7 +245,7 @@ export default {
     }
   },
   methods: {
-    getCropData () {
+    cropPhoto () {
       this.$refs.cropper.getCroppedCanvas().toBlob(blob => {
         let file = new File([blob], this.imgName, {type: blob.type, lastModified: Date.now()})
         const formData = new FormData()
@@ -240,6 +257,7 @@ export default {
           this.showModal = false
           this.article.image = data.id
           this.article.cover_photo = data
+          this.isSaved = false
         })
         .catch(err => console.log(err))
       })
@@ -257,18 +275,7 @@ export default {
       } else {
         this.article[key] = this.$refs[key].innerText
       }
-    },
-    updateTags (val) {
-      this.article.tags = []
-      val.forEach(tag => {
-        if (tag['label']) {
-          this.article.tags.push(tag)
-        } else {
-          this.article.tags.push({
-            label: tag
-          })
-        }
-      })
+      this.isSaved = false
     },
     showEmojis () {
       this.emojis = !this.emojis
@@ -278,13 +285,19 @@ export default {
       quill.focus()
       let range = quill.getSelection()
       quill.insertText(range.index, emoji.native)
+      this.isSaved = false
     },
     updateArticle () {
       axios.patch(`/api/articles/${this.article.slug}/`, this.article, this.$store.getters.authorizationHeader)
         .then(res => {
           this.article = res.data
           this.article.image = this.article.cover_photo.id
-          this.notification = 'Updated article!'
+          this.$notify({
+            group: 'admin',
+            title: `Success!`,
+            text: `${this.article.title} has been updated!`
+          })
+          this.isSaved = true
           this.$router.push(`/admin/edit/${res.data.slug}`)
         })
         .catch(err => console.log(err))
@@ -292,6 +305,12 @@ export default {
     submitArticle () {
       axios.post('/api/articles/', this.article, this.$store.getters.authorizationHeader)
         .then(res => {
+          this.$notify({
+            group: 'admin',
+            title: `Success!`,
+            text: `${this.article.title} has been created! Publish it from your dashboard!`
+          })
+          this.isSaved = true
           this.$router.push(`/admin/edit/${res.data.slug}`)
         })
         .catch(err => console.log(err))
@@ -302,6 +321,7 @@ export default {
       let range = quill.getSelection()
       let src = prompt('Paste image link here!')
       quill.insertEmbed(range.index, 'image', src)
+      this.isSaved = false
     },
     quillUpload (target) {
       const formData = new FormData()
@@ -314,6 +334,7 @@ export default {
           quill.focus()
           let range = quill.getSelection()
           quill.insertEmbed(range.index, 'image', data.url)
+          this.isSaved = false
         })
         .catch(err => console.log(err))
     },
@@ -347,10 +368,8 @@ export default {
   color: #806C8F;
   background: white;
 }
-.notification {
-  position: fixed;
-  z-index: 9998;
-  background-color: purple;
+.disabled {
+  background-color: gray;
 }
 </style>
 
