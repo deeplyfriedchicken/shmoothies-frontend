@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     getArticles () {
-      axios.get('/api/articles/list/published/?search=' + this.$route.params.query)
+      axios.get(`/api/articles/list/published/?search=${this.$route.params.query}`)
       .then(res => {
         const data = res.data
         this.articles = data.results

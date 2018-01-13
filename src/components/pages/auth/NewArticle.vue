@@ -1,82 +1,105 @@
 <template>
   <div>
     <div class="contents-inner clearfix mb-230">
-        <article class="blog-post col-md-12">
-          <header>
-            <h3 contenteditable="true" ref="title" v-on:blur="updateInput('title')">{{ article.title }}</h3>
-            <ul class="categories">
-              <li><a contenteditable="true" ref="category" v-on:blur="updateInput('category')">{{ article.category.name }}</a></li>
-            </ul>
-            <h5 contenteditable="true" ref="blurb" v-on:blur="updateInput('blurb')">{{ article.blurb }}</h5>
-            <figure>
-              <form enctype="multipart/form-data" novalidate>
-                <input id="cover" name="url" type="file" accept="image/*" ref="cover" @change="uploadImage($event.target.name, $event.target.files)">
-                <label for="cover" class="upload">
-                  <i class="fa fa-upload mb-25" v-if="!imageUploaded"></i>
-                  <img v-if="article.cover_photo" :src="article.cover_photo.url" >
-                </label>
-              </form>
-            </figure>
-            <div class="text-left mb-25">
-              <h2>Tags</h2>
-              <v-select :close-on-select="false" :on-change="updateTags" :on-search="getTags" v-model="articleTags" multiple :taggable="true" :options="tags" placeholder="Add tags here!"></v-select>
+      <article class="blog-post col-md-12">
+        <header>
+          <h3 contenteditable="true" ref="title" v-on:blur="updateInput('title')">{{ article.title }}</h3>
+          <ul class="categories">
+            <li><a contenteditable="true" ref="category" v-on:blur="updateInput('category')">{{ article.category.name }}</a></li>
+          </ul>
+          <h5 contenteditable="true" ref="blurb" v-on:blur="updateInput('blurb')">{{ article.blurb }}</h5>
+          <figure>
+            <form enctype="multipart/form-data" novalidate>
+              <input id="cover" type="file" accept="image/*" ref="cover" @change="setImage($event.target.files)">
+              <label for="cover" class="upload" v-if="!article.cover_photo">
+                <i class="fa fa-file-image-o mb-25"></i>
+              </label>
+            </form>
+            <div v-if="article.cover_photo">
+              <img :src="article.cover_photo.url" :alt="article.cover_photo.caption">
+              <div class="text-center">
+                <button class="btn btn-success" @click="showModal = true">Recrop</button>
+                <button class="btn btn-warning" @click="$refs.cover.click()">Change Photo</button>
+              </div>
             </div>
-          </header>
-          <div class="post-content">
-            <div id="toolbar">
-              <span class="ql-formats">
-              <select class="ql-font"></select>
-              <select class="ql-size"></select>
-              </span>
-              <span class="ql-formats">
-              <button class="ql-bold"></button>
-              <button class="ql-italic"></button>
-              <button class="ql-underline"></button>
-              <button class="ql-strike"></button>
-              </span>
-              <span class="ql-formats">
-              <select class="ql-color"></select>
-              <select class="ql-background"></select>
-              </span>
-              <span class="ql-formats">
-              <button class="ql-script" value="sub"></button>
-              <button class="ql-script" value="super"></button>
-              </span>
-              <span class="ql-formats">
-              <select class="ql-header"></select>
-              <button class="ql-blockquote"></button>
-              <button class="ql-code-block"></button>
-              </span>
-              <span class="ql-formats">
-              <button class="ql-list" value="ordered"></button>
-              <button class="ql-list" value="bullet"></button>
-              <button class="ql-indent" value="-1"></button>
-              <button class="ql-indent" value="+1"></button>
-              </span>
-              <span class="ql-formats">
-              <button class="ql-direction" value="rtl"></button>
-              <select class="ql-align"></select>
-              </span>
-              <span class="ql-formats">
-              <button class="ql-link"></button>
-              <button class="ql-image"></button>
-              <button class="ql-video"></button>
-              <button id="embed-image" @click="embedImageSource"><i class="fa fa-external-link"></i></button>
-              <button @click="showEmojis"><i class="fa fa-smile-o"></i></button>
-              </span>
-              <span class="ql-formats">
-              <button class="ql-clean"></button>
-              </span>
+            <div class="modal text-center" v-if="showModal">
+              <div class="modal-container">
+                <div class="modal-actions">
+                  <button class="btn btn-default float-right" @click="showModal = false"><i class="fa fa-close"></i></button>
+                </div>
+                <vue-cropper
+                  class="mb-20"
+                  ref="cropper"
+                  :zoomable="false"
+                  :aspect-ratio="16/9"
+                  :toggleDragModeOnDblclick="false"
+                  v-if="imgSrc"
+                  :src="imgSrc">
+                </vue-cropper>
+                <button class="btn btn-primary crop-btn" @click="getCropData">Crop</button>
+              </div>
             </div>
-            <picker ref="emojis" v-bind:class="{ 'no-emoji-mart': !emojis }" @click="addEmoji"></picker>
-            <input type="file" id="quill-image" class="hide-input" ref="image" @change="quillUpload($event.target)">
-            <quill-editor ref="editor" :options="editorOption" v-model="article.content"></quill-editor>
-            <div class="text-center mt-25">
-              <button v-if="!editing" class="btn btn-primary" @click.prevent="submitArticle">Add Article!</button>
-              <button v-if="editing" class="btn btn-primary" @click.prevent="updateArticle">Update!</button>
-            </div>
-          </div><!-- /post-content -->
-        </article>
+          </figure>
+          <div class="text-left mb-25">
+            <h2>Tags</h2>
+            <v-select :close-on-select="false" :on-change="updateTags" :on-search="getTags" v-model="articleTags" multiple :taggable="true" :options="tags" placeholder="Add tags here!"></v-select>
+          </div>
+        </header>
+        <div class="post-content">
+          <div id="toolbar">
+            <span class="ql-formats">
+            <select class="ql-font"></select>
+            <select class="ql-size"></select>
+            </span>
+            <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-strike"></button>
+            </span>
+            <span class="ql-formats">
+            <select class="ql-color"></select>
+            <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+            <button class="ql-script" value="sub"></button>
+            <button class="ql-script" value="super"></button>
+            </span>
+            <span class="ql-formats">
+            <select class="ql-header"></select>
+            <button class="ql-blockquote"></button>
+            <button class="ql-code-block"></button>
+            </span>
+            <span class="ql-formats">
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-indent" value="-1"></button>
+            <button class="ql-indent" value="+1"></button>
+            </span>
+            <span class="ql-formats">
+            <button class="ql-direction" value="rtl"></button>
+            <select class="ql-align"></select>
+            </span>
+            <span class="ql-formats">
+            <button class="ql-link"></button>
+            <button class="ql-image"></button>
+            <button class="ql-video"></button>
+            <button id="embed-image" @click="embedImageSource"><i class="fa fa-external-link"></i></button>
+            <button @click="showEmojis"><i class="fa fa-smile-o"></i></button>
+            </span>
+            <span class="ql-formats">
+            <button class="ql-clean"></button>
+            </span>
+          </div>
+          <picker ref="emojis" v-bind:class="{ 'no-emoji-mart': !emojis }" @click="addEmoji"></picker>
+          <input type="file" id="quill-image" class="hide-input" ref="image" @change="quillUpload($event.target)">
+          <quill-editor ref="editor" :options="editorOption" v-model="article.content"></quill-editor>
+          <div class="text-center mt-25">
+            <button v-if="!editing" class="btn btn-primary" @click.prevent="submitArticle">Add Article!</button>
+            <button v-if="editing" class="btn btn-primary" @click.prevent="updateArticle">Update!</button>
+          </div>
+        </div><!-- /post-content -->
+      </article>
     </div><!-- /contents-inner -->
   </div>
 </template>
@@ -85,6 +108,7 @@
 import axios from '../../../axios-auth'
 import vSelect from 'vue-select'
 import { Picker } from 'emoji-mart-vue'
+import VueCropper from 'vue-cropperjs'
 // require styles
 import '../../../../node_modules/quill/dist/quill.core.css'
 import '../../../../node_modules/quill/dist/quill.snow.css'
@@ -131,7 +155,8 @@ export default {
   components: {
     quillEditor,
     vSelect,
-    Picker
+    Picker,
+    VueCropper
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -139,12 +164,13 @@ export default {
         axios.get('/api/articles/' + vm.$route.params.slug + '/', vm.$store.getters.authorizationHeader)
         .then(res => {
           vm.article = res.data
-          vm.article.image = vm.article.cover_photo.id
           vm.articleTags = vm.article.tags
+          vm.article.image = vm.article.cover_photo.id
+          vm.imgName = vm.article.cover_photo.url.split('media/images/')[1]
+          vm.imgSrc = vm.article.cover_photo.url
         })
         .catch(error => console.log(error))
         vm.editing = true
-        vm.imageUploaded = true
       }
       next()
     })
@@ -166,7 +192,10 @@ export default {
       articleTags: [],
       editing: false,
       emojis: false,
-      imageUploaded: false,
+      showModal: false,
+      imgSrc: null,
+      imgName: null,
+      notification: null,
       editorOption: {
         modules: {
           toolbar: {
@@ -191,7 +220,30 @@ export default {
       }
     }
   },
+  watch: {
+    // whenever question changes, this function will run
+    showModal: function (newShowModal, oldShowModal) {
+      let bodyStyle = document.querySelector('body').style
+      this.showModal ? bodyStyle.overflowY = 'hidden' : bodyStyle.overflowY = ''
+    }
+  },
   methods: {
+    getCropData () {
+      this.$refs.cropper.getCroppedCanvas().toBlob(blob => {
+        let file = new File([blob], this.imgName, {type: blob.type, lastModified: Date.now()})
+        const formData = new FormData()
+        formData.append('url', file)
+        formData.append('caption', '')
+        axios.post('/api/images/', formData, this.$store.getters.authorizationHeader)
+        .then(res => {
+          const data = res.data
+          this.showModal = false
+          this.article.image = data.id
+          this.article.cover_photo = data
+        })
+        .catch(err => console.log(err))
+      })
+    },
     getTags (search, loading) {
       axios.get(`/api/tags/?search=${search}`)
         .then(res => {
@@ -232,6 +284,7 @@ export default {
         .then(res => {
           this.article = res.data
           this.article.image = this.article.cover_photo.id
+          this.notification = 'Updated article!'
           this.$router.push(`/admin/edit/${res.data.slug}`)
         })
         .catch(err => console.log(err))
@@ -247,7 +300,6 @@ export default {
       const quill = this.$refs.editor.quill
       quill.focus()
       let range = quill.getSelection()
-      console.log(range)
       let src = prompt('Paste image link here!')
       quill.insertEmbed(range.index, 'image', src)
     },
@@ -263,24 +315,27 @@ export default {
           let range = quill.getSelection()
           quill.insertEmbed(range.index, 'image', data.url)
         })
-        .catch(function (err) {
-          console.log(err)
-        })
-    },
-    uploadImage (fieldName, files) {
-      const formData = new FormData()
-      formData.append('url', files[0])
-      formData.append('caption', '')
-
-      axios.post('/api/images/', formData, this.$store.getters.authorizationHeader)
-        .then(res => {
-          const data = res.data
-          this.image = data
-          this.article.image = this.image.id
-          this.article.cover_photo = this.image
-          this.imageUploaded = true
-        })
         .catch(err => console.log(err))
+    },
+    setImage (files) {
+      const file = files[0]
+      this.showModal = true
+      this.imgName = file.name
+      if (typeof FileReader === 'function') {
+        const reader = new FileReader()
+
+        reader.onload = (event) => {
+          this.imgSrc = event.target.result
+
+          // rebuild cropperjs with the updated source
+          if (this.$refs.cropper) {
+            this.$refs.cropper.replace(event.target.result)
+          }
+        }
+        reader.readAsDataURL(file)
+      } else {
+        alert('Sorry, FileReader API not supported')
+      }
     }
   }
 }
@@ -292,9 +347,43 @@ export default {
   color: #806C8F;
   background: white;
 }
+.notification {
+  position: fixed;
+  z-index: 9998;
+  background-color: purple;
+}
 </style>
 
 <style>
+.modal {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: block;
+  transition: opacity .3s ease;
+}
+
+.modal-container {
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+  max-width: 700px;
+  margin: 25px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-actions {
+  height: 30px;
+}
+
 #cover {
   display: none;
 }
