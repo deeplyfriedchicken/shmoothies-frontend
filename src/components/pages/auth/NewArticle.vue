@@ -371,6 +371,10 @@ export default {
 .disabled {
   background-color: gray;
 }
+.post-content .no-emoji-mart {
+  display: none;
+}
+
 </style>
 
 <style>
@@ -411,9 +415,6 @@ export default {
   cursor: pointer;
 }
 .hide-input {
-  display: none;
-}
-.post-content .no-emoji-mart {
   display: none;
 }
 
