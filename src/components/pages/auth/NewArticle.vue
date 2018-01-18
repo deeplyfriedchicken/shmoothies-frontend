@@ -287,7 +287,23 @@ export default {
       quill.insertText(range.index, emoji.native)
       this.isSaved = false
     },
+    modifyTags (tags) {
+      const modified = []
+      tags.forEach(tag => {
+        if (tag.label) {
+          modified.push({
+            'label': tag.label
+          })
+        } else {
+          modified.push({
+            'label': tag
+          })
+        }
+      })
+      return modified
+    },
     updateArticle () {
+      this.article.tags = this.modifyTags(this.article.tags)
       axios.patch(`/api/articles/${this.article.slug}/`, this.article, this.$store.getters.authorizationHeader)
         .then(res => {
           this.article = res.data
@@ -303,6 +319,7 @@ export default {
         .catch(err => console.log(err))
     },
     submitArticle () {
+      this.article.tags = this.modifyTags(this.article.tags)
       axios.post('/api/articles/', this.article, this.$store.getters.authorizationHeader)
         .then(res => {
           this.$notify({
