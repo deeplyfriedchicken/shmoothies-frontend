@@ -34,13 +34,13 @@ export default new Router({
           path: 'category/:category',
           name: 'PageCategory',
           component: PageCategory
-        },
-        {
-          path: 'category/:category/:article',
-          name: 'Article',
-          component: Article
         }
       ]
+    },
+    {
+      path: '/category/:category/:article',
+      name: 'Article',
+      component: Article
     },
     {
       path: '/login',

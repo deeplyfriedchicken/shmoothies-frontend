@@ -7,9 +7,11 @@
           v-bind:index="i"
           v-bind:key="article.id">
           <header>
-              <figure class="bg" :style="`background-image: url(${ article.cover_photo.url })`">
-              </figure>
-              <h3><a href="#">{{ article.title }}</a></h3>
+              <router-link :to="`/category/${ article.category.name.toLowerCase()}/${ article.slug }`">
+                <figure class="bg" :style="`background-image: url(${ article.cover_photo.url })`">
+                </figure>
+              </router-link>
+              <h3><router-link :to="`/category/${ article.category.name.toLowerCase()}/${ article.slug }`">{{ article.title }}</router-link></h3>
               <div class="meta">
                   <span>{{ article.category.name }}</span>
                   <span><time :datetime="article.date_created">{{ article.date_created | moment("from", "now") }}</time></span>
